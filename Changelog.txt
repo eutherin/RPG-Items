@@ -1,0 +1,194 @@
+Changelog:
+
+Key:
+  + Addition
+  = Fix
+  ! Change
+  - Removal
+
+Version 3.4:
++ Added an update checker, will only check if there's a new version available
+- Removed auto updater
+  
+Version 3.3:
+= Fixed command power
+
+Version 3.2: (Thanks to a donation from Caw3)
+= Fixed leather armour colouring (again)
+= Fixed an issue with items that had their tooltip removed by other plugins
+! {player} is now replaced with the player's name in the command power
+
+Version 3.1:
++ Added missing locale strings
+= Fixed leather armour colouring
+= Fixed spam clicking draining durability
+! Max durability is now shown on printing the item
+
+Version 3.0:
+= Minor bug fixes
+! Moved to new locale server as old one went down
+
+Version 2.9:
++ Added custom durability system. Unbreaking/Unbreakable have been removed in favour of this system.
+= Fixed damage values in recipes
+! Increased delay between potionticks fixing regeneration
+
+Version 2.8:
+= Fixed missing locale issues
+! Changed damage event priority, fixes issues with some plugins 
+
+Version 2.7:
+= Fixed missing locale issues
+= Fixed crash with locale downloading disabled
+= Fixed leather armour colouring
+
+Version 2.6:
+= Fixed recipe issue
+= Fixed locale issues
+
+Version 2.5:
++ New locale system, all translations are not there or badly done atm
+= Fixed armour
+
+Version 2.4:
+= Fixed client crash when setting a recipe for an item with a long display name
+
+Version 2.3:
+* Upon failing to load the items.yml, RPG Items will create a backup and store a log of the error
+! Internal changes
+! Allow for custom recipes to be set for RPG Items. Use ///rpgitem [item] recipe// to open a window where you can place the item in the shape you want the recipe to be. Use ///rpgitem [item] removerecipe// to remove the recipe
+! Moved ///rpgitem worldguard// to ///rpgitem option worldguard//
++ Added ///rpgitem option giveperms//. When toggled on ///rpgitem [item] give// can be used by anyone who has the //rpgitem.give.[itemname]//
+! RPG Items can now be dropped from mobs. Use ///rpgitem [item] drop [EntityType] [chance]// to set the chance of dropping
++ Added support for tick powers. Tick powers work when the item is in your hand or equipped (Armour). Currently the only tick power is potiontick
+
+Version 2.2:
+= Fixed major sky hook bug causing items.yml corruption 
+
+Version 2.1:
+= Fixed null pointer on startup for some
+= Fixed descriptions being lost on update (Sorry can't recover the already lost ones :( )
+
+Version 2.0:
++ Added skyhook power. This still needs a lot of work but should be ok for now.
+= Fix error with anvils
+! Allowed multiples of the same power to be attached
+! Command power now will give op for the use of the command if the permission is set to * (This should fix issues caused by some permissions plugins preventing normal permissions being set)
+! Lots of internal changes
+
+Version 1.9:
+* Stopped items autorepairing
+
+Version 1.8:
+= Fixed a crash in 1.7
++ Added missing locale for rumble
+
+Version 1.7:
++ Added count option to give command
+* Unicode improved, should work everywhere
+* Descriptions now support colour codes. (& symbol)
+* Can now use hex colours for data values/armour colour
+* Ice power now collides with entities
++ New power rumble, send a wave through the ground sending an entity flying when found
++ Added a header to help command
+= Fixed data values not being changed on old items after changing the item
+* Localisation support, Please help on [[http://dev.bukkit.org/server-mods/rpg-items/localization/|here]]
+
+Version 1.6:
+* Command system changed, most commands stayed the same just the internals that changed.
+* Help on bukkitdev is now generated using the in game help, should help it stay up to date.
+* ///rpgitem// now only shows the commands and no help.
+* Help is more detailed now and can be shown by using ///rpgitem help [terms]//  e.g: ///rpgitem help power// will show help for all powers while ///rpgitem help power ice// will show help for the ice power
+* Help is also shown if the command system can work out what you where trying to do.
+= Fixed an error on the potionhit tooltip
+* Per an item worldguard disable
+* Unicode fixed
+* Item description - allows you to add non-lore lines to an item.
+
+Version 1.5:
+* Power cooldowns are no longer shared between item types
+* Changed consume power to only remove one at a time
+
+Version 1.4:
++ Added plugin metrics (Can be disabled by setting opt-out: true in PluginMetrics/config.yml)
+* Unbreakable power
+* Unbreaking power
+* **Note** When used on a projectile weapon (e.g bow) the player can switch weapon before the projectile hits to repair that weapon. So... don't use them on bows for now.
+
+Version 1.3:
+* Print bug fixed
+* Fix potionself error message
+* Basic consume power (/rpgitem [name] power consume)
+* Command power now supports temp permissions (optional)
+<<code lua>>
+/rpgitem [name] power command [cooldown] [left/right] display | command | permission
+<</code>>
+
+Version 1.2:
+* PotionSelf fixed
+* Projectile custom damage
+
+Version 1.1:
+= Fixed major issue causing error on start up for first use
+* Projectile powers
+
+Currently supported
+
+- Teleport
+
+- Lightning
+
+Version 1.0:
+= Fixed potionself always giving speed
+* Block - rpgitems cannot be placed any-more
+* Armour now uses % based damage reduction. Old armour should update to the new system automatically.
+
+Version 0.9:
+* Data value support  (/rpgitem [name] [data] [itemname])
+* Leather armour colour support(/rpgitem [name] [colour] [itemname])
+* Basic world guard support, prevents items being used in no pvp areas. Toggle with /rpgitem worldguard
+* Items can spawned with a number (if data value is also provided) (/rpgitem [name] [data] [itemid])
+
+Version 0.8:
+* Rainbow wool removes itself
+* Colours can be used for lore/hand/type just use & then the colour number. See http://wiki.vg/Chat
++ Added basic armour support. Armour reduces damage based on its value, e.g: 10 armour reduces damage by 10.
+* Arrows now remove themselves
+= Fixed an error in potionhit's error message
++ Added new power potionself
+* Disabled power rush. Just use potionself, old rush powers still work but new ones may not be added.
+= Fixed "Power added" being displayed when the power failed to add
+* Improved tooltips for powers
+
+Version 0.7:
+= Fixed the potion effects.
+
+Version 0.6:
++ Added fireball power
++ Added rush power
++ Added knockup power
+
+Version 0.5:
+* Damage fix
+* Durability fix
+* Ice now removes itself
+* Improved ice hit detection with blocks.
+* If damage is set to zero then it will not show on the tooltip
+
+Version 0.4:
++ New power PotionHit. Chance to apply set potion effect on hit
++ New power Teleport. Teleport to where you are looking. Can set limit.
+= Fixed missing display command in help
+= Fixed zero damage not working
+! Allowed changing the defaults "Sword", "One handed" in config
+! Allowed changing "Damage" text in config
+
+Version 0.3:
+= Fixed an console error message. **Note:** This doesn't cause an issue in v0.2 its just old debug code.
+
+Version 0.2:
++ Added ice power
++ Added command power (Run command on use)
+! Allowed use from console and command blocks
+! Allowed **give** to target other players
+! Tidied up help
