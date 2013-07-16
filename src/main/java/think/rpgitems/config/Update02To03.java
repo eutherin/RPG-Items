@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
-import think.rpgitems.Plugin;
+import think.rpgitems.RPGItems;
 import think.rpgitems.data.Locale;
 import think.rpgitems.item.ItemManager;
 import think.rpgitems.item.Quality;
@@ -29,12 +29,12 @@ public class Update02To03 implements Updater {
     @SuppressWarnings("unchecked")
     @Override
     public void update(ConfigurationSection section) {
-        Plugin plugin = Plugin.plugin;
+        RPGItems rPGItems = RPGItems.p;
         try {
             FileInputStream in = null;
             YamlConfiguration itemStorage = null;
             try {
-                File f = new File(plugin.getDataFolder(), "items.yml");
+                File f = new File(rPGItems.getDataFolder(), "items.yml");
                 in = new FileInputStream(f);
                 byte[] data = new byte[(int) f.length()];
                 in.read(data);
@@ -70,21 +70,21 @@ public class Update02To03 implements Updater {
                             displayName = new String(byte[].class.cast(s.get("display_bin", "")), "UTF-8");
                         }
                         if (s.contains("type")) {
-                            type = s.getString("type", Plugin.plugin.getConfig().getString("defaults.sword", "Sword"));
+                            type = s.getString("type", RPGItems.p.getConfig().getString("defaults.sword", "Sword"));
                         } else {
                             if (s.contains("type_bin")) {
                                 type = new String(byte[].class.cast(s.get("type_bin", "")), "UTF-8");
                             } else {
-                                type = Plugin.plugin.getConfig().getString("defaults.sword", "Sword");
+                                type = RPGItems.p.getConfig().getString("defaults.sword", "Sword");
                             }
                         }
                         if (s.contains("hand")) {
-                            hand = s.getString("hand", Plugin.plugin.getConfig().getString("defaults.hand", "One handed"));
+                            hand = s.getString("hand", RPGItems.p.getConfig().getString("defaults.hand", "One handed"));
                         } else {
                             if (s.contains("hand_bin")) {
                                 hand = new String(byte[].class.cast(s.get("hand_bin", "")), "UTF-8");
                             } else {
-                                hand = Plugin.plugin.getConfig().getString("defaults.hand", "One handed");
+                                hand = RPGItems.p.getConfig().getString("defaults.hand", "One handed");
                             }
                         }
                         if (s.contains("lore")) {
@@ -163,7 +163,7 @@ public class Update02To03 implements Updater {
             }
             ItemManager.currentPos = currentPos;
 
-            ItemManager.save(plugin);
+            ItemManager.save(rPGItems);
             ItemManager.itemByName.clear();
             ItemManager.itemById.clear();
         } catch (Exception e) {

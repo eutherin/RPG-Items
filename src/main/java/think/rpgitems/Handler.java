@@ -54,8 +54,8 @@ public class Handler implements CommandHandler {
             sender.sendMessage(ChatColor.AQUA + Locale.get("message.worldguard.enable", locale));
         }
         WorldGuard.useWorldGuard = !WorldGuard.useWorldGuard;
-        Plugin.plugin.getConfig().set("support.worldguard", WorldGuard.useWorldGuard);
-        Plugin.plugin.saveConfig();
+        RPGItems.p.getConfig().set("support.worldguard", WorldGuard.useWorldGuard);
+        RPGItems.p.saveConfig();
     }
 
     @CommandString("rpgitem $n[]")
@@ -72,7 +72,7 @@ public class Handler implements CommandHandler {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         if (ItemManager.newItem(itemName.toLowerCase()) != null) {
             sender.sendMessage(String.format(ChatColor.GREEN + Locale.get("message.create.ok", locale), itemName));
-            ItemManager.save(Plugin.plugin);
+            ItemManager.save(RPGItems.p);
         } else {
             sender.sendMessage(ChatColor.RED + Locale.get("message.create.fail", locale));
         }
@@ -83,13 +83,13 @@ public class Handler implements CommandHandler {
     @CommandGroup("option_giveperms")
     public void givePerms(CommandSender sender) {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
-        Plugin.plugin.getConfig().set("give-perms", !Plugin.plugin.getConfig().getBoolean("give-perms", false));
-        if (Plugin.plugin.getConfig().getBoolean("give-perms", false)) {
+        RPGItems.p.getConfig().set("give-perms", !RPGItems.p.getConfig().getBoolean("give-perms", false));
+        if (RPGItems.p.getConfig().getBoolean("give-perms", false)) {
             sender.sendMessage(ChatColor.AQUA + Locale.get("message.giveperms.true", locale));
         } else {
             sender.sendMessage(ChatColor.AQUA + Locale.get("message.giveperms.false", locale));
         }
-        Plugin.plugin.saveConfig();
+        RPGItems.p.saveConfig();
     }
 
     @CommandString(value = "rpgitem $n[] give", handlePermissions = true)
@@ -98,7 +98,7 @@ public class Handler implements CommandHandler {
     public void giveItem(CommandSender sender, RPGItem item) {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         if (sender instanceof Player) {
-            if ((!Plugin.plugin.getConfig().getBoolean("give-perms", false) && sender.hasPermission("rpgitem")) || (Plugin.plugin.getConfig().getBoolean("give-perms", false) && sender.hasPermission("rpgitem.give." + item.getName()))) {
+            if ((!RPGItems.p.getConfig().getBoolean("give-perms", false) && sender.hasPermission("rpgitem")) || (RPGItems.p.getConfig().getBoolean("give-perms", false) && sender.hasPermission("rpgitem.give." + item.getName()))) {
                 item.give((Player) sender);
                 sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.give.ok", locale), item.getDisplay()));
             } else {
@@ -135,7 +135,7 @@ public class Handler implements CommandHandler {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         ItemManager.remove(item);
         sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.remove.ok", locale), item.getName()));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] display")
@@ -153,7 +153,7 @@ public class Handler implements CommandHandler {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         item.setDisplay(display);
         sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.display.set", locale), item.getName(), item.getDisplay()));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] quality")
@@ -171,7 +171,7 @@ public class Handler implements CommandHandler {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         item.setQuality(quality);
         sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.quality.set", locale), item.getName(), item.getQuality().toString().toLowerCase()));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] damage")
@@ -189,7 +189,7 @@ public class Handler implements CommandHandler {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         item.setDamage(damage, damage);
         sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.damage.set", locale), item.getName(), item.getDamageMin()));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] damage $min:i[] $max:i[]")
@@ -199,7 +199,7 @@ public class Handler implements CommandHandler {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         item.setDamage(min, max);
         sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.damage.set.range", locale), item.getName(), item.getDamageMin(), item.getDamageMax()));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] armour")
@@ -217,7 +217,7 @@ public class Handler implements CommandHandler {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         item.setArmour(armour);
         sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.armour.set", locale), item.getName(), item.getArmour()));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] type")
@@ -235,7 +235,7 @@ public class Handler implements CommandHandler {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         item.setType(type);
         sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.type.set", locale), item.getName(), item.getType()));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] hand")
@@ -253,7 +253,7 @@ public class Handler implements CommandHandler {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         item.setHand(hand);
         sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.hand.set", locale), item.getName(), item.getHand()));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] lore")
@@ -271,7 +271,7 @@ public class Handler implements CommandHandler {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         item.setLore(lore);
         sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.lore.set", locale), item.getName(), item.getLore()));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] item")
@@ -289,7 +289,7 @@ public class Handler implements CommandHandler {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         item.setItem(material);
         sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.item.set", locale), item.getName(), item.getItem(), item.getDataValue()));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] item $m[] $data:i[]")
@@ -309,7 +309,7 @@ public class Handler implements CommandHandler {
         }
         item.rebuild();
         sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.item.set", locale), item.getName(), item.getItem(), item.getDataValue()));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] item $m[] hex $hexcolour:s[]")
@@ -336,7 +336,7 @@ public class Handler implements CommandHandler {
         }
         item.rebuild();
         sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.item.set", locale), item.getName(), item.getItem(), item.getDataValue()));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] item $itemid:i[]")
@@ -351,7 +351,7 @@ public class Handler implements CommandHandler {
         }
         item.setItem(mat);
         sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.item.set", locale), item.getName(), item.getItem(), item.getDataValue()));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] item $itemid:i[] $data:i[]")
@@ -376,7 +376,7 @@ public class Handler implements CommandHandler {
         }
         item.rebuild();
         sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.item.set", locale), item.getName(), item.getItem(), item.getDataValue()));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] removepower $power:s[]")
@@ -387,7 +387,7 @@ public class Handler implements CommandHandler {
         if (item.removePower(power)) {
             Power.powerUsage.put(power, Power.powerUsage.get(power) - 1);
             sender.sendMessage(ChatColor.GREEN + String.format(Locale.get("message.power.removed", locale), power));
-            ItemManager.save(Plugin.plugin);
+            ItemManager.save(RPGItems.p);
         } else {
             sender.sendMessage(ChatColor.RED + String.format(Locale.get("message.power.unknown", locale), power));
         }
@@ -400,7 +400,7 @@ public class Handler implements CommandHandler {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         item.addDescription(ChatColor.WHITE + line);
         sender.sendMessage(ChatColor.AQUA + Locale.get("message.description.ok", locale));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] description set $lineno:i[] $descriptionline:s[]")
@@ -415,7 +415,7 @@ public class Handler implements CommandHandler {
         item.description.set(lineNo, ChatColor.translateAlternateColorCodes('&', ChatColor.WHITE + line));
         item.rebuild();
         sender.sendMessage(ChatColor.AQUA + Locale.get("message.description.change", locale));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] description remove $lineno:i[]")
@@ -430,7 +430,7 @@ public class Handler implements CommandHandler {
         item.description.remove(lineNo);
         item.rebuild();
         sender.sendMessage(ChatColor.AQUA + Locale.get("message.description.remove", locale));
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
     }
 
     @CommandString("rpgitem $n[] worldguard")
@@ -533,7 +533,7 @@ public class Handler implements CommandHandler {
                 set.remove(item.getID());
             }
         }
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
         sender.sendMessage(String.format(ChatColor.AQUA + Locale.get("message.drop.set", locale), item.getDisplay() + ChatColor.AQUA, typeS.toLowerCase(), item.dropChances.get(typeS)));
     }
 
@@ -543,7 +543,7 @@ public class Handler implements CommandHandler {
     public void setItemDurability(CommandSender sender, RPGItem item, int newValue) {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         item.setMaxDurability(newValue);
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
         sender.sendMessage(Locale.get("message.durability.change", locale));
     }
 
@@ -553,7 +553,7 @@ public class Handler implements CommandHandler {
     public void setItemDurabilityInfinite(CommandSender sender, RPGItem item) {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         item.setMaxDurability(-1);
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
         sender.sendMessage(Locale.get("message.durability.change", locale));
     }
 
@@ -563,7 +563,7 @@ public class Handler implements CommandHandler {
     public void toggleItemDurabilityBar(CommandSender sender, RPGItem item) {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         item.toggleBar();
-        ItemManager.save(Plugin.plugin);
+        ItemManager.save(RPGItems.p);
         sender.sendMessage(Locale.get("message.durability.toggle", locale));
     }
     

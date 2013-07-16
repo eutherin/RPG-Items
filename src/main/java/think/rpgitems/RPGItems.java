@@ -64,15 +64,15 @@ import think.rpgitems.power.PowerUnbreaking;
 import think.rpgitems.support.WorldGuard;
 
 @SuppressWarnings("deprecation")
-public class Plugin extends JavaPlugin {
+public class RPGItems extends JavaPlugin {
 
     public static Logger logger = Logger.getLogger("RPGItems");
 
-    public static Plugin plugin;
+    public static RPGItems p;
 
     @Override
     public void onLoad() {
-        plugin = this;
+        p = this;
         reloadConfig();
         Font.load();
         Power.powers.put("arrow", PowerArrow.class);

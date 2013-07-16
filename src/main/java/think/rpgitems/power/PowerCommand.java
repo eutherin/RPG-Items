@@ -21,7 +21,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 
-import think.rpgitems.Plugin;
+import think.rpgitems.RPGItems;
 import think.rpgitems.data.Locale;
 import think.rpgitems.data.RPGValue;
 import think.rpgitems.power.types.PowerLeftClick;
@@ -49,7 +49,7 @@ public class PowerCommand extends Power implements PowerRightClick, PowerLeftCli
             if (cooldown <= System.currentTimeMillis() / 50) {
                 value.set(System.currentTimeMillis() / 50 + cooldownTime);
                 if (permission.length() != 0 && !permission.equals("*")) {
-                    PermissionAttachment attachment = player.addAttachment(Plugin.plugin, 1);
+                    PermissionAttachment attachment = player.addAttachment(RPGItems.p, 1);
                     String[] perms = permission.split("\\.");
                     StringBuilder p = new StringBuilder();
                     for (int i = 0; i < perms.length; i++) {
@@ -84,7 +84,7 @@ public class PowerCommand extends Power implements PowerRightClick, PowerLeftCli
             if (cooldown <= System.currentTimeMillis() / 50) {
                 value.set(System.currentTimeMillis() / 50 + cooldownTime);
                 if (permission.length() != 0 && !permission.equals("*")) {
-                    PermissionAttachment attachment = player.addAttachment(Plugin.plugin, 1);
+                    PermissionAttachment attachment = player.addAttachment(RPGItems.p, 1);
                     String[] perms = permission.split("\\.");
                     StringBuilder p = new StringBuilder();
                     for (int i = 0; i < perms.length; i++) {
