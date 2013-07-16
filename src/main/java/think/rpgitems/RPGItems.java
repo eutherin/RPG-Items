@@ -23,7 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -62,13 +62,15 @@ import think.rpgitems.power.PowerTicker;
 import think.rpgitems.power.PowerUnbreakable;
 import think.rpgitems.power.PowerUnbreaking;
 import think.rpgitems.support.WorldGuard;
+import think.rpgitems.util.UpdateChecker;
 
 @SuppressWarnings("deprecation")
 public class RPGItems extends JavaPlugin {
 
-    public static Logger logger = Logger.getLogger("RPGItems");
-
     public static RPGItems p;
+
+    // Update Check
+    public boolean updateAvailable;
 
     @Override
     public void onLoad() {
@@ -102,9 +104,6 @@ public class RPGItems extends JavaPlugin {
         updateConfig();
         WorldGuard.init(this);
         ConfigurationSection conf = getConfig();
-        if (conf.getBoolean("autoupdate", true)) {
-            new Updater(this, "rpg-items", this.getFile(), Updater.UpdateType.DEFAULT, false);
-        }
         if (conf.getBoolean("localeInv", false)) {
             Events.useLocaleInv = true;
         }
@@ -137,6 +136,7 @@ public class RPGItems extends JavaPlugin {
         Commands.register(new Handler());
         Commands.register(new PowerHandler());
         new PowerTicker().runTaskTimer(this, 0, 1);
+        checkForUpdates();
     }
 
     @Override
@@ -222,5 +222,21 @@ public class RPGItems extends JavaPlugin {
         for (String arg : args)
             out.append(arg).append(' ');
         return Commands.complete(sender, out.toString());
+    }
+
+    private void checkForUpdates() {
+        if (getConfig().getBoolean("autoupdate", true)) {
+            try {
+                updateAvailable = UpdateChecker.updateAvailable();
+            }
+            catch (Exception e) {
+                updateAvailable = false;
+            }
+
+            if (updateAvailable) {
+                this.getLogger().log(Level.INFO, "This version of RPG-Items is outdated!");
+                this.getLogger().log(Level.INFO, "Download the update at BukkitDev");
+            }
+        }
     }
 }

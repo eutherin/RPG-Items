@@ -16,9 +16,13 @@
  */
 package think.rpgitems.support;
 
+import java.util.logging.Level;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+
+import think.rpgitems.RPGItems;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
@@ -37,7 +41,7 @@ public class WorldGuard {
         }
         hasSupport = true;
         WorldGuard.plugin = (WorldGuardPlugin) plugin;
-        think.rpgitems.RPGItems.logger.info("[RPG Items] World Guard found");
+        RPGItems.p.getLogger().log(Level.INFO, "WorldGuard found");
     }
 
     public static boolean isEnabled() {
