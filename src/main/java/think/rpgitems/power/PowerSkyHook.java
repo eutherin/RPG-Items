@@ -16,10 +16,10 @@ import think.rpgitems.data.RPGValue;
 import think.rpgitems.power.types.PowerRightClick;
 
 public class PowerSkyHook extends Power implements PowerRightClick {
-    
+
     public Material railMaterial = Material.GLASS;
     public int hookDistance = 10;
-    
+
     @Override
     public void rightClick(final Player player) {
         RPGValue isHooking = RPGValue.get(player, item, "skyhook.isHooking");
@@ -42,9 +42,9 @@ public class PowerSkyHook extends Power implements PowerRightClick {
         player.setVelocity(location.getDirection().multiply(block.getLocation().distance(location) / 2d));
         player.setFlying(true);
         (new BukkitRunnable() {
-            
+
             private int delay = 0;
-            
+
             @Override
             public void run() {
                 if (!player.getAllowFlight()) {
@@ -54,7 +54,7 @@ public class PowerSkyHook extends Power implements PowerRightClick {
                 }
                 if (!RPGValue.get(player, item, "skyhook.isHooking").asBoolean()) {
                     player.setFlying(false);
-                    if (player.getGameMode() != GameMode.CREATIVE) 
+                    if (player.getGameMode() != GameMode.CREATIVE)
                         player.setAllowFlight(false);
                     cancel();
                     return;
@@ -73,14 +73,14 @@ public class PowerSkyHook extends Power implements PowerRightClick {
                 location.add(dir);
                 if (location.getBlock().getType() != railMaterial) {
                     player.setFlying(false);
-                    if (player.getGameMode() != GameMode.CREATIVE) 
+                    if (player.getGameMode() != GameMode.CREATIVE)
                         player.setAllowFlight(false);
                     cancel();
                     RPGValue.get(player, item, "skyhook.isHooking").set(false);
                     return;
                 }
                 player.setVelocity(dir.multiply(0.5));
-                
+
             }
         }).runTaskTimer(RPGItems.p, 0, 0);
     }

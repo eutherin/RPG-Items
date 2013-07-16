@@ -50,7 +50,8 @@ public class Handler implements CommandHandler {
         }
         if (WorldGuard.useWorldGuard) {
             sender.sendMessage(ChatColor.AQUA + Locale.get("message.worldguard.disable", locale));
-        } else {
+        }
+        else {
             sender.sendMessage(ChatColor.AQUA + Locale.get("message.worldguard.enable", locale));
         }
         WorldGuard.useWorldGuard = !WorldGuard.useWorldGuard;
@@ -73,7 +74,8 @@ public class Handler implements CommandHandler {
         if (ItemManager.newItem(itemName.toLowerCase()) != null) {
             sender.sendMessage(String.format(ChatColor.GREEN + Locale.get("message.create.ok", locale), itemName));
             ItemManager.save(RPGItems.p);
-        } else {
+        }
+        else {
             sender.sendMessage(ChatColor.RED + Locale.get("message.create.fail", locale));
         }
     }
@@ -86,7 +88,8 @@ public class Handler implements CommandHandler {
         RPGItems.p.getConfig().set("give-perms", !RPGItems.p.getConfig().getBoolean("give-perms", false));
         if (RPGItems.p.getConfig().getBoolean("give-perms", false)) {
             sender.sendMessage(ChatColor.AQUA + Locale.get("message.giveperms.true", locale));
-        } else {
+        }
+        else {
             sender.sendMessage(ChatColor.AQUA + Locale.get("message.giveperms.false", locale));
         }
         RPGItems.p.saveConfig();
@@ -101,10 +104,12 @@ public class Handler implements CommandHandler {
             if ((!RPGItems.p.getConfig().getBoolean("give-perms", false) && sender.hasPermission("rpgitem")) || (RPGItems.p.getConfig().getBoolean("give-perms", false) && sender.hasPermission("rpgitem.give." + item.getName()))) {
                 item.give((Player) sender);
                 sender.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.give.ok", locale), item.getDisplay()));
-            } else {
+            }
+            else {
                 sender.sendMessage(ChatColor.RED + Locale.get("message.error.permission", locale));
             }
-        } else {
+        }
+        else {
             sender.sendMessage(ChatColor.RED + Locale.get("message.give.console", locale));
         }
     }
@@ -301,7 +306,8 @@ public class Handler implements CommandHandler {
         ItemMeta meta = item.getLocaleMeta(locale);
         if (meta instanceof LeatherArmorMeta) {
             ((LeatherArmorMeta) meta).setColor(Color.fromRGB(data));
-        } else {
+        }
+        else {
             item.setDataValue((short) data);
         }
         for (String locales : Locale.getLocales()) {
@@ -319,8 +325,9 @@ public class Handler implements CommandHandler {
         String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
         int dam;
         try {
-            dam = Integer.parseInt((String) hexColour, 16);
-        } catch (NumberFormatException e) {
+            dam = Integer.parseInt(hexColour, 16);
+        }
+        catch (NumberFormatException e) {
             sender.sendMessage(ChatColor.RED + "Failed to parse " + hexColour);
             return;
         }
@@ -328,7 +335,8 @@ public class Handler implements CommandHandler {
         ItemMeta meta = item.getLocaleMeta(locale);
         if (meta instanceof LeatherArmorMeta) {
             ((LeatherArmorMeta) meta).setColor(Color.fromRGB(dam));
-        } else {
+        }
+        else {
             item.setDataValue((short) dam);
         }
         for (String locales : Locale.getLocales()) {
@@ -368,7 +376,8 @@ public class Handler implements CommandHandler {
         ItemMeta meta = item.toItemStack(locale).getItemMeta();
         if (meta instanceof LeatherArmorMeta) {
             ((LeatherArmorMeta) meta).setColor(Color.fromRGB(data));
-        } else {
+        }
+        else {
             item.setDataValue((short) data);
         }
         for (String locales : Locale.getLocales()) {
@@ -388,7 +397,8 @@ public class Handler implements CommandHandler {
             Power.powerUsage.put(power, Power.powerUsage.get(power) - 1);
             sender.sendMessage(ChatColor.GREEN + String.format(Locale.get("message.power.removed", locale), power));
             ItemManager.save(RPGItems.p);
-        } else {
+        }
+        else {
             sender.sendMessage(ChatColor.RED + String.format(Locale.get("message.power.unknown", locale), power));
         }
     }
@@ -445,7 +455,8 @@ public class Handler implements CommandHandler {
         item.ignoreWorldGuard = !item.ignoreWorldGuard;
         if (item.ignoreWorldGuard) {
             sender.sendMessage(ChatColor.AQUA + Locale.get("message.worldguard.override.active", locale));
-        } else {
+        }
+        else {
             sender.sendMessage(ChatColor.AQUA + Locale.get("message.worldguard.override.disabled", locale));
         }
     }
@@ -499,7 +510,8 @@ public class Handler implements CommandHandler {
             }
             player.openInventory(recipeInventory);
             Events.recipeWindows.put(player.getName(), item.getID());
-        } else {
+        }
+        else {
             sender.sendMessage(ChatColor.RED + Locale.get("message.error.only.player", locale));
         }
     }
@@ -526,7 +538,8 @@ public class Handler implements CommandHandler {
             }
             Set<Integer> set = Events.drops.get(typeS);
             set.add(item.getID());
-        } else {
+        }
+        else {
             item.dropChances.remove(typeS);
             if (Events.drops.containsKey(typeS)) {
                 Set<Integer> set = Events.drops.get(typeS);
@@ -566,6 +579,5 @@ public class Handler implements CommandHandler {
         ItemManager.save(RPGItems.p);
         sender.sendMessage(Locale.get("message.durability.toggle", locale));
     }
-    
-    
+
 }

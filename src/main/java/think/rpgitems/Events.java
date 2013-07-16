@@ -120,10 +120,12 @@ public class Events implements Listener {
         if (removeArrows.contains(entity.getEntityId())) {
             entity.remove();
             removeArrows.remove(entity.getEntityId());
-        } else if (rpgProjectiles.contains(entity.getEntityId())) {
+        }
+        else if (rpgProjectiles.contains(entity.getEntityId())) {
             RPGItem item = ItemManager.getItemById(rpgProjectiles.get(entity.getEntityId()));
             new BukkitRunnable() {
 
+                @Override
                 public void run() {
                     rpgProjectiles.remove(entity.getEntityId());
 
@@ -178,10 +180,11 @@ public class Events implements Listener {
             rItem.rightClick(player);
             if (player.getItemInHand().getTypeId() != 0)
                 RPGItem.updateItem(item, Locale.getPlayerLocale(player));
-            else 
+            else
                 player.setItemInHand(null);
             player.updateInventory();
-        } else if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
+        }
+        else if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
             ItemStack item = player.getItemInHand();
             if (item.getType() == Material.BOW || item.getType() == Material.SNOW_BALL || item.getType() == Material.EGG || item.getType() == Material.POTION)
                 return;
@@ -257,7 +260,8 @@ public class Events implements Listener {
             item.resetRecipe(true);
             ItemManager.save(RPGItems.p);
             ((Player) e.getPlayer()).sendMessage(ChatColor.AQUA + "Recipe set for " + item.getName());
-        } else if (useLocaleInv && e.getView() instanceof LocaleInventory) {
+        }
+        else if (useLocaleInv && e.getView() instanceof LocaleInventory) {
             localeInventories.remove(e.getView());
             ((LocaleInventory) e.getView()).getView().close();
         }
@@ -271,17 +275,18 @@ public class Events implements Listener {
             Bukkit.getServer().getPluginManager().callEvent(clickEvent);
             if (clickEvent.isCancelled()) {
                 e.setCancelled(true);
-            } else {
+            }
+            else {
                 switch (clickEvent.getResult()) {
-                case DEFAULT: // Can't really do this with current events
-                case ALLOW:
-                    System.out.println("ok...");
-                    System.out.println(inv.getView().getItem(e.getRawSlot()));
-                    inv.getView().setItem(e.getRawSlot(), clickEvent.getCursor());
-                    System.out.println(inv.getView().getItem(e.getRawSlot()));
-                    break;
-                case DENY:
-                    break;
+                    case DEFAULT: // Can't really do this with current events
+                    case ALLOW:
+                        System.out.println("ok...");
+                        System.out.println(inv.getView().getItem(e.getRawSlot()));
+                        inv.getView().setItem(e.getRawSlot(), clickEvent.getCursor());
+                        System.out.println(inv.getView().getItem(e.getRawSlot()));
+                        break;
+                    case DENY:
+                        break;
                 }
             }
             for (LocaleInventory localeInv : localeInventories) {
@@ -305,10 +310,12 @@ public class Events implements Listener {
                     if (ItemManager.toRPGItem(item) != null)
                         RPGItem.updateItem(item, locale);
                 }
-            } catch (ArrayIndexOutOfBoundsException ex) {
+            }
+            catch (ArrayIndexOutOfBoundsException ex) {
                 // Fix for the bug with anvils in craftbukkit
             }
-        } else if (useLocaleInv) {
+        }
+        else if (useLocaleInv) {
             LocaleInventory localeInv = new LocaleInventory((Player) e.getPlayer(), e.getView());
             e.setCancelled(true);
             e.getPlayer().openInventory(localeInv);
@@ -378,7 +385,7 @@ public class Events implements Listener {
             if (!WorldGuard.canPvP(p.getLocation()) && !pRItem.ignoreWorldGuard)
                 return damage;
             if (pRItem.getArmour() > 0) {
-                damage -= Math.round(((double) damage) * (((double) pRItem.getArmour()) / 100d));
+                damage -= Math.round((damage) * ((pRItem.getArmour()) / 100d));
             }
             RPGMetadata meta = RPGItem.getMetadata(pArmour);
             if (pRItem.getMaxDurability() != -1) {
@@ -401,7 +408,8 @@ public class Events implements Listener {
         int damage = (int) e.getDamage();
         if (e.getDamager() instanceof Player) {
             damage = playerDamager(e, damage);
-        } else if (e.getDamager() instanceof Projectile) {
+        }
+        else if (e.getDamager() instanceof Projectile) {
             damage = projectileDamager(e, damage);
         }
         if (e.getEntity() instanceof Player) {

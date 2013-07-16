@@ -27,7 +27,7 @@ import think.rpgitems.data.Locale;
 import think.rpgitems.data.RPGValue;
 import think.rpgitems.power.types.PowerRightClick;
 
-public class PowerArrow extends Power implements PowerRightClick{
+public class PowerArrow extends Power implements PowerRightClick {
 
     public long cooldownTime = 20;
 
@@ -38,7 +38,8 @@ public class PowerArrow extends Power implements PowerRightClick{
         if (value == null) {
             cooldown = System.currentTimeMillis() / 50;
             value = new RPGValue(player, item, "arrow.cooldown", cooldown);
-        } else {
+        }
+        else {
             cooldown = value.asLong();
         }
         if (cooldown <= System.currentTimeMillis() / 50) {
@@ -46,14 +47,15 @@ public class PowerArrow extends Power implements PowerRightClick{
             player.playSound(player.getLocation(), Sound.SHOOT_ARROW, 1.0f, 1.0f);
             Arrow arrow = player.launchProjectile(Arrow.class);
             Events.removeArrows.put(arrow.getEntityId(), (byte) 1);
-        } else {
-            player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), ((double) (cooldown - System.currentTimeMillis() / 50)) / 20d));
+        }
+        else {
+            player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), (cooldown - System.currentTimeMillis() / 50) / 20d));
         }
     }
 
     @Override
     public String displayText(String locale) {
-        return ChatColor.GREEN + String.format(Locale.get("power.arrow", locale), (double) cooldownTime / 20d);
+        return ChatColor.GREEN + String.format(Locale.get("power.arrow", locale), cooldownTime / 20d);
     }
 
     @Override

@@ -37,7 +37,8 @@ public class PowerTNTCannon extends Power implements PowerRightClick {
         if (value == null) {
             cooldown = System.currentTimeMillis() / 50;
             value = new RPGValue(player, item, "tnt.cooldown", cooldown);
-        } else {
+        }
+        else {
             cooldown = value.asLong();
         }
         if (cooldown <= System.currentTimeMillis() / 50) {
@@ -45,14 +46,15 @@ public class PowerTNTCannon extends Power implements PowerRightClick {
             player.playSound(player.getLocation(), Sound.SHOOT_ARROW, 1.0f, 1.0f);
             TNTPrimed tnt = player.getWorld().spawn(player.getLocation().add(0, 1.8, 0), TNTPrimed.class);
             tnt.setVelocity(player.getLocation().getDirection().multiply(2d));
-        } else {
-            player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), ((double) (cooldown - System.currentTimeMillis() / 50)) / 20d));
+        }
+        else {
+            player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), (cooldown - System.currentTimeMillis() / 50) / 20d));
         }
     }
 
     @Override
     public String displayText(String locale) {
-        return ChatColor.GREEN + String.format(Locale.get("power.tntcannon", locale), (double) cooldownTime / 20d);
+        return ChatColor.GREEN + String.format(Locale.get("power.tntcannon", locale), cooldownTime / 20d);
     }
 
     @Override

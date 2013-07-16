@@ -33,7 +33,8 @@ public class PowerConsume extends Power implements PowerRightClick {
         if (count == 0) {
             item.setAmount(0);
             player.setItemInHand(null);
-        } else {
+        }
+        else {
             item.setAmount(count);
         }
     }

@@ -38,7 +38,7 @@ public class Update01To02 implements Updater {
                 ConfigurationSection item = iSection.getConfigurationSection(key);
                 if (item.contains("armour")) {
                     int dam = item.getInt("armour");
-                    item.set("armour", (int) ((((double) dam) / 20d) * 100d));
+                    item.set("armour", (int) (((dam) / 20d) * 100d));
                 }
             }
         }
@@ -47,7 +47,8 @@ public class Update01To02 implements Updater {
 
         try {
             itemStorage.save(iFile);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

@@ -33,7 +33,8 @@ public class Font {
                 widths[i] = in.read();
             }
             in.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }

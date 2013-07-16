@@ -105,9 +105,9 @@ public class RPGItem {
         item = new ItemStack(Material.WOOD_SWORD);
 
         displayName = item.getType().toString();
-        
+
         localeMeta.put("en_GB", item.getItemMeta());
-        
+
         rebuild();
     }
 
@@ -132,7 +132,8 @@ public class RPGItem {
         ItemMeta meta = item.getItemMeta();
         if (meta instanceof LeatherArmorMeta) {
             ((LeatherArmorMeta) meta).setColor(Color.fromRGB(s.getInt("item_colour", 0)));
-        } else {
+        }
+        else {
             item.setDurability((short) s.getInt("item_data", 0));
         }
         for (String locale : Locale.getLocales()) {
@@ -154,9 +155,11 @@ public class RPGItem {
                     pow.init(section);
                     pow.item = this;
                     addPower(pow, false);
-                } catch (InstantiationException e) {
+                }
+                catch (InstantiationException e) {
                     e.printStackTrace();
-                } catch (IllegalAccessException e) {
+                }
+                catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
             }
@@ -181,7 +184,8 @@ public class RPGItem {
                     }
                     Set<Integer> set = Events.drops.get(key);
                     set.add(getID());
-                } else {
+                }
+                else {
                     dropChances.remove(key);
                     if (Events.drops.containsKey(key)) {
                         Set<Integer> set = Events.drops.get(key);
@@ -200,7 +204,7 @@ public class RPGItem {
         if (maxDurability == 0) {
             maxDurability = -1;
         }
-        
+
         rebuild();
     }
 
@@ -226,7 +230,8 @@ public class RPGItem {
         ItemMeta meta = localeMeta.get("en_GB");
         if (meta instanceof LeatherArmorMeta) {
             s.set("item_colour", ((LeatherArmorMeta) meta).getColor().asRGB());
-        } else {
+        }
+        else {
             s.set("item_data", item.getDurability());
         }
         ConfigurationSection powerConfigs = s.createSection("powers");
@@ -407,7 +412,7 @@ public class RPGItem {
                 StringBuilder out = new StringBuilder();
                 char boxChar = '\u25A0';
                 int boxCount = tooltipWidth / 4;
-                int mid = (int) ((double) boxCount * ((double) durability / (double) maxDurability));
+                int mid = (int) (boxCount * ((double) durability / (double) maxDurability));
                 for (int i = 0; i < boxCount; i++) {
                     out.append(i < mid ? ChatColor.GREEN : i == mid ? ChatColor.YELLOW : ChatColor.RED);
                     out.append(boxChar);
@@ -415,10 +420,11 @@ public class RPGItem {
                 lore.add(out.toString());
             }
             if (hasBar) {
-                item.setDurability((short) (item.getType().getMaxDurability() - ((short) ((double) item.getType().getMaxDurability() * ((double) durability / (double) maxDurability)))));
+                item.setDurability((short) (item.getType().getMaxDurability() - ((short) (item.getType().getMaxDurability() * ((double) durability / (double) maxDurability)))));
             }
-        } else if (maxDurability <= 0) {
-            item.setDurability(hasBar ? (short)0 : this.item.getDurability());
+        }
+        else if (maxDurability <= 0) {
+            item.setDurability(hasBar ? (short) 0 : this.item.getDurability());
         }
     }
 
@@ -436,11 +442,14 @@ public class RPGItem {
         String damageStr = null;
         if (damageMin == 0 && damageMax == 0 && armour != 0) {
             damageStr = armour + "% " + RPGItems.p.getConfig().getString("defaults.armour", "Armour");
-        } else if (armour == 0 && damageMin == 0 && damageMax == 0) {
+        }
+        else if (armour == 0 && damageMin == 0 && damageMax == 0) {
             damageStr = null;
-        } else if (damageMin == damageMax) {
+        }
+        else if (damageMin == damageMax) {
             damageStr = damageMin + " " + RPGItems.p.getConfig().getString("defaults.damage", "Damage");
-        } else {
+        }
+        else {
             damageStr = damageMin + "-" + damageMax + " " + RPGItems.p.getConfig().getString("defaults.damage", "Damage");
         }
         if (damageMin != 0 || damageMax != 0 || armour != 0) {
@@ -504,7 +513,8 @@ public class RPGItem {
                         out.append(ChatColor.ITALIC);
                         out.append(temp);
                         temp = new StringBuilder();
-                    } else {
+                    }
+                    else {
                         out.append(temp);
                         temp = new StringBuilder();
                         cWidth += tWidth;
@@ -788,7 +798,7 @@ public class RPGItem {
         }
         if (power != null) {
             if (power instanceof PowerHit) {
-                powerHit.remove((PowerHit) power);
+                powerHit.remove(power);
             }
             if (power instanceof PowerLeftClick) {
                 powerLeftClick.remove(power);

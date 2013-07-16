@@ -16,12 +16,12 @@ public class Update03To04 implements Updater {
     @Override
     public void update(ConfigurationSection section) {
         RPGItems rPGItems = RPGItems.p;
-        
+
         ItemManager.load(rPGItems);
 
         for (RPGItem item : ItemManager.itemByName.values()) {
             Iterator<Power> it = item.powers.iterator();
-            while(it.hasNext()) {
+            while (it.hasNext()) {
                 Power power = it.next();
                 if (power instanceof PowerUnbreakable) {
                     item.setMaxDurability(-1, false);
@@ -29,16 +29,16 @@ public class Update03To04 implements Updater {
                 }
                 if (power instanceof PowerUnbreaking) {
                     PowerUnbreaking ub = (PowerUnbreaking) power;
-                    item.setMaxDurability((int) ((double)item.getMaxDurability() * (1d + (double)(ub.level) / 2d)));
+                    item.setMaxDurability((int) (item.getMaxDurability() * (1d + (ub.level) / 2d)));
                     it.remove();
                 }
             }
         }
-        
+
         ItemManager.save(rPGItems);
         ItemManager.itemByName.clear();
-        ItemManager.itemById.clear();       
-        section.set("version", "0.4"); 
+        ItemManager.itemById.clear();
+        section.set("version", "0.4");
     }
 
 }

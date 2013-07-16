@@ -41,17 +41,22 @@ public class Update02To03 implements Updater {
                 itemStorage = new YamlConfiguration();
                 String str = new String(data, "UTF-8");
                 itemStorage.loadFromString(str);
-            } catch (FileNotFoundException e) {
+            }
+            catch (FileNotFoundException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
-            } catch (InvalidConfigurationException e) {
+            }
+            catch (InvalidConfigurationException e) {
                 e.printStackTrace();
-            } finally {
+            }
+            finally {
                 try {
                     if (in != null)
                         in.close();
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -66,37 +71,45 @@ public class Update02To03 implements Updater {
                     try {
                         if (s.contains("display")) {
                             displayName = s.getString("display");
-                        } else {
+                        }
+                        else {
                             displayName = new String(byte[].class.cast(s.get("display_bin", "")), "UTF-8");
                         }
                         if (s.contains("type")) {
                             type = s.getString("type", RPGItems.p.getConfig().getString("defaults.sword", "Sword"));
-                        } else {
+                        }
+                        else {
                             if (s.contains("type_bin")) {
                                 type = new String(byte[].class.cast(s.get("type_bin", "")), "UTF-8");
-                            } else {
+                            }
+                            else {
                                 type = RPGItems.p.getConfig().getString("defaults.sword", "Sword");
                             }
                         }
                         if (s.contains("hand")) {
                             hand = s.getString("hand", RPGItems.p.getConfig().getString("defaults.hand", "One handed"));
-                        } else {
+                        }
+                        else {
                             if (s.contains("hand_bin")) {
                                 hand = new String(byte[].class.cast(s.get("hand_bin", "")), "UTF-8");
-                            } else {
+                            }
+                            else {
                                 hand = RPGItems.p.getConfig().getString("defaults.hand", "One handed");
                             }
                         }
                         if (s.contains("lore")) {
                             lore = s.getString("lore");
-                        } else {
+                        }
+                        else {
                             if (s.contains("lore_bin")) {
                                 lore = new String(byte[].class.cast(s.get("lore_bin", "")), "UTF-8");
-                            } else {
+                            }
+                            else {
                                 lore = "";
                             }
                         }
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e) {
                         e.printStackTrace();
                     }
                     List<String> description = (List<String>) s.getList("description", new ArrayList<String>());
@@ -111,7 +124,8 @@ public class Update02To03 implements Updater {
                     ItemMeta meta = item.getItemMeta();
                     if (meta instanceof LeatherArmorMeta) {
                         ((LeatherArmorMeta) meta).setColor(Color.fromRGB(s.getInt("item_colour", 0)));
-                    } else {
+                    }
+                    else {
                         item.setDurability((short) s.getInt("item_data", 0));
                     }
                     boolean ignoreWorldGuard = s.getBoolean("ignoreWorldGuard", false);
@@ -129,9 +143,11 @@ public class Update02To03 implements Updater {
                                 pow.init(powerSection.getConfigurationSection(key));
                                 // pow.item = this;
                                 powers.add(pow);
-                            } catch (InstantiationException e) {
+                            }
+                            catch (InstantiationException e) {
                                 e.printStackTrace();
-                            } catch (IllegalAccessException e) {
+                            }
+                            catch (IllegalAccessException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -166,7 +182,8 @@ public class Update02To03 implements Updater {
             ItemManager.save(rPGItems);
             ItemManager.itemByName.clear();
             ItemManager.itemById.clear();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
         section.set("version", "0.3");

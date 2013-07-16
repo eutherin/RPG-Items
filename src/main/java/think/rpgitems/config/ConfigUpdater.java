@@ -57,10 +57,12 @@ public class ConfigUpdater {
                 }
                 conf.set("version", "0.1");
                 RPGItems.p.saveConfig();
-            } else {
+            }
+            else {
                 if (updates.containsKey(conf.get("version"))) {
                     updates.get(conf.get("version")).update(conf);
-                } else {
+                }
+                else {
                     break;
                 }
             }

@@ -57,22 +57,27 @@ public class ItemManager {
                 itemStorage = new YamlConfiguration();
                 String str = new String(data, "UTF-8");
                 itemStorage.loadFromString(str);
-            } catch (FileNotFoundException e) {
-            } catch (IOException e) {
+            }
+            catch (FileNotFoundException e) {}
+            catch (IOException e) {
                 e.printStackTrace();
-            } catch (InvalidConfigurationException e) {
+            }
+            catch (InvalidConfigurationException e) {
                 e.printStackTrace();
-            } finally {
+            }
+            finally {
                 try {
                     if (in != null)
                         in.close();
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     e.printStackTrace();
                 }
             }
             currentPos = itemStorage.getInt("pos", 0);
             ConfigurationSection section = itemStorage.getConfigurationSection("items");
-            if (section == null) return;
+            if (section == null)
+                return;
             for (String key : section.getKeys(false)) {
                 RPGItem item = new RPGItem(section.getConfigurationSection(key));
                 itemById.put(item.getID(), item);
@@ -81,7 +86,7 @@ public class ItemManager {
                     Power.powerUsage.put(power.getName(), Power.powerUsage.get(power.getName()) + 1);
                 }
             }
-            
+
             if (itemStorage.contains("groups")) {
                 ConfigurationSection gSection = itemStorage.getConfigurationSection("groups");
                 for (String key : gSection.getKeys(false)) {
@@ -89,7 +94,8 @@ public class ItemManager {
                     groups.put(group.getName(), group);
                 }
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             //Something went wrong
             rPGItems.getLogger().severe("Error loading items.yml. Creating backup");
             File file = new File(rPGItems.getDataFolder(), "items.yml");
@@ -102,9 +108,11 @@ public class ItemManager {
                 ps = new PrintStream(log);
                 ps.printf("RPGItems (%s) ItemManager.load\r\n", rPGItems.getDescription().getVersion());
                 e.printStackTrace(ps);
-            } catch (FileNotFoundException e1) {
+            }
+            catch (FileNotFoundException e1) {
                 e1.printStackTrace();
-            } finally {
+            }
+            finally {
                 ps.close();
             }
         }
@@ -126,28 +134,33 @@ public class ItemManager {
         }
 
         ConfigurationSection groupsSection = itemStorage.createSection("groups");
-        
+
         for (Entry<String, ItemGroup> group : groups.entrySet()) {
             ConfigurationSection groupSection = groupsSection.createSection(group.getKey());
             group.getValue().save(groupSection);
         }
-        
+
         FileOutputStream out = null;
         try {
             File f = new File(rPGItems.getDataFolder(), "items.yml");
             out = new FileOutputStream(f);
             out.write(itemStorage.saveToString().getBytes("UTF-8"));
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+        }
+        catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             try {
                 if (out != null)
                     out.close();
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -165,7 +178,8 @@ public class ItemManager {
             int id = ItemManager.decodeId(meta.getDisplayName());
             RPGItem rItem = ItemManager.getItemById(id);
             return rItem;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return null;
         }
     }

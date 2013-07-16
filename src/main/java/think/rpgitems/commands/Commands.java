@@ -75,13 +75,14 @@ abstract public class Commands {
         int pos = com.indexOf(' ');
         if (pos == -1) {
             comName = com;
-        } else {
+        }
+        else {
             comName = com.substring(0, pos);
         }
         com = com.substring(pos + 1);
 
-        String locale = sender instanceof Player ? Locale.getPlayerLocale((Player)sender) : "en_GB";
-        
+        String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
+
         ArrayList<CommandDef> command = commands.get(comName);
         if (command == null) {
             sender.sendMessage(ChatColor.RED + String.format(Locale.get("message.error.unknown.command", locale), comName));
@@ -96,13 +97,16 @@ abstract public class Commands {
                             c.method.invoke(c.handler, sender);
                         else
                             sender.sendMessage(ChatColor.RED + Locale.get("message.error.permission", locale));
-                    } catch (IllegalAccessException e) {
+                    }
+                    catch (IllegalAccessException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
-                    } catch (IllegalArgumentException e) {
+                    }
+                    catch (IllegalArgumentException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
-                    } catch (InvocationTargetException e) {
+                    }
+                    catch (InvocationTargetException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
@@ -127,7 +131,8 @@ abstract public class Commands {
                     sender.sendMessage(buf.toString());
                 }
                 sender.sendMessage(ChatColor.GREEN + Locale.get("message.command.info", locale));
-            } else
+            }
+            else
                 sender.sendMessage(ChatColor.RED + Locale.get("message.error.permission", locale));
             return;
         }
@@ -142,12 +147,14 @@ abstract public class Commands {
                 com = com.substring(1);
                 end = com.indexOf('`');
                 quote = true;
-            } else {
+            }
+            else {
                 end = com.indexOf(' ');
             }
             if (end == -1) {
                 args.add(com);
-            } else {
+            }
+            else {
                 args.add(com.substring(0, end));
             }
             if (quote) {
@@ -156,7 +163,8 @@ abstract public class Commands {
             }
             if (end != -1) {
                 com = com.substring(end + 1);
-            } else {
+            }
+            else {
                 break;
             }
         }
@@ -166,7 +174,8 @@ abstract public class Commands {
                 if (c.arguments.length != 0 && c.arguments[c.arguments.length - 1] instanceof ArgumentString) {
                     if (args.size() < c.arguments.length)
                         continue;
-                } else {
+                }
+                else {
                     continue;
                 }
             }
@@ -191,7 +200,8 @@ abstract public class Commands {
                         continue comLoop;
                     }
                     outArgs.add(res);
-                } else {
+                }
+                else {
                     ArgumentConst cst = (ArgumentConst) a;
                     if (!cst.value.equals(args.get(i))) {
                         continue comLoop;
@@ -203,13 +213,16 @@ abstract public class Commands {
                     c.method.invoke(c.handler, outArgs.toArray());
                 else
                     sender.sendMessage(ChatColor.RED + Locale.get("message.error.permission", locale));
-            } catch (IllegalAccessException e) {
+            }
+            catch (IllegalAccessException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            } catch (IllegalArgumentException e) {
+            }
+            catch (IllegalArgumentException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            } catch (InvocationTargetException e) {
+            }
+            catch (InvocationTargetException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -218,7 +231,8 @@ abstract public class Commands {
         if (sender.hasPermission("rpgitem")) {
             if (lastError != null) {
                 sender.sendMessage(ChatColor.RED + String.format(Locale.get("message.error.command", locale), lastError.error));
-            } else {
+            }
+            else {
                 ArrayList<String> consts = new ArrayList<String>();
                 comLoop: for (CommandDef c : command) {
                     for (int i = 0; i < c.arguments.length; i++) {
@@ -241,11 +255,13 @@ abstract public class Commands {
                                 lastError = (CommandError) res;
                                 continue comLoop;
                             }
-                        } else {
+                        }
+                        else {
                             ArgumentConst cst = (ArgumentConst) a;
                             if (!cst.value.equals(args.get(i))) {
                                 continue comLoop;
-                            } else {
+                            }
+                            else {
                                 consts.add(cst.value);
                             }
                         }
@@ -257,7 +273,8 @@ abstract public class Commands {
                 }
                 searchHelp(sender, search.toString());
             }
-        } else
+        }
+        else
             sender.sendMessage(ChatColor.RED + Locale.get("message.error.permission", locale));
     }
 
@@ -270,13 +287,14 @@ abstract public class Commands {
         int pos = com.indexOf(' ');
         if (pos == -1) {
             comName = com;
-        } else {
+        }
+        else {
             comName = com.substring(0, pos);
         }
         com = com.substring(pos + 1);
 
-        String locale = sender instanceof Player ? Locale.getPlayerLocale((Player)sender) : "en_GB";
-        
+        String locale = sender instanceof Player ? Locale.getPlayerLocale((Player) sender) : "en_GB";
+
         ArrayList<CommandDef> command = commands.get(comName);
 
         if (command == null) {
@@ -302,12 +320,14 @@ abstract public class Commands {
                 com = com.substring(1);
                 end = com.indexOf('`');
                 quote = true;
-            } else {
+            }
+            else {
                 end = com.indexOf(' ');
             }
             if (end == -1) {
                 args.add(com);
-            } else {
+            }
+            else {
                 args.add(com.substring(0, end));
             }
             if (quote) {
@@ -316,7 +336,8 @@ abstract public class Commands {
             }
             if (end != -1) {
                 com = com.substring(end + 1);
-            } else {
+            }
+            else {
                 break;
             }
         }
@@ -333,13 +354,15 @@ abstract public class Commands {
                         }
                         continue comLoop;
                     }
-                } else {
+                }
+                else {
                     if (!a.isConst()) {
                         Object res = a.parse(args.get(i), locale);
                         if (res instanceof CommandError) {
                             continue comLoop;
                         }
-                    } else {
+                    }
+                    else {
                         ArgumentConst cst = (ArgumentConst) a;
                         if (!cst.value.equals(args.get(i))) {
                             continue comLoop;
@@ -380,7 +403,8 @@ abstract public class Commands {
         String comName;
         if (pos == -1) {
             comName = com;
-        } else {
+        }
+        else {
             comName = com.substring(0, pos);
         }
 
@@ -391,12 +415,14 @@ abstract public class Commands {
         Class<?>[] params = method.getParameterTypes();
         if (method.isAnnotationPresent(CommandDocumentation.class)) {
             def.documentation = method.getAnnotation(CommandDocumentation.class).value();
-        } else {
+        }
+        else {
             def.documentation = "";
         }
         if (method.isAnnotationPresent(CommandGroup.class)) {
             def.sortKey = method.getAnnotation(CommandGroup.class).value();
-        } else {
+        }
+        else {
             def.sortKey = "";
         }
         CommandString comString = method.getAnnotation(CommandString.class);
@@ -418,7 +444,8 @@ abstract public class Commands {
             String a;
             if (pos == -1) {
                 a = com;
-            } else {
+            }
+            else {
                 a = com.substring(0, pos);
                 com = com.substring(pos + 1);
             }
@@ -444,10 +471,12 @@ abstract public class Commands {
                     arg.name = name;
                     arguments.add(arg);
                     realArgumentsCount++;
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else { // Const
+            }
+            else { // Const
                 arguments.add(new ArgumentConst(a));
             }
             if (pos == -1) {
@@ -517,12 +546,13 @@ abstract public class Commands {
                                 }
                                 docStr += out.toString();
                             }
-                        } else {
+                        }
+                        else {
                             docStr = Locale.get(docStr.substring(1), locale);
                         }
                     }
                     docStr = docStr.replaceAll("@", "" + ChatColor.BLUE).replaceAll("#", "" + ChatColor.WHITE);
-                    
+
                     StringBuilder docBuf = new StringBuilder();
                     char[] chars = docStr.toCharArray();
                     docBuf.append(ChatColor.WHITE);
@@ -532,59 +562,60 @@ abstract public class Commands {
                             i++;
                             l = chars[i];
                             switch (l) {
-                            case '0':
-                                docBuf.append(ChatColor.BLACK);
-                                break;
-                            case '1':
-                                docBuf.append(ChatColor.DARK_BLUE);
-                                break;
-                            case '2':
-                                docBuf.append(ChatColor.DARK_GREEN);
-                                break;
-                            case '3':
-                                docBuf.append(ChatColor.DARK_AQUA);
-                                break;
-                            case '4':
-                                docBuf.append(ChatColor.DARK_RED);
-                                break;
-                            case '5':
-                                docBuf.append(ChatColor.DARK_PURPLE);
-                                break;
-                            case '6':
-                                docBuf.append(ChatColor.GOLD);
-                                break;
-                            case '7':
-                                docBuf.append(ChatColor.GRAY);
-                                break;
-                            case '8':
-                                docBuf.append(ChatColor.DARK_GRAY);
-                                break;
-                            case '9':
-                                docBuf.append(ChatColor.BLUE);
-                                break;
-                            case 'a':
-                                docBuf.append(ChatColor.GREEN);
-                                break;
-                            case 'b':
-                                docBuf.append(ChatColor.AQUA);
-                                break;
-                            case 'c':
-                                docBuf.append(ChatColor.RED);
-                                break;
-                            case 'd':
-                                docBuf.append(ChatColor.LIGHT_PURPLE);
-                                break;
-                            case 'e':
-                                docBuf.append(ChatColor.YELLOW);
-                                break;
-                            case 'f':
-                                docBuf.append(ChatColor.WHITE);
-                                break;
-                            case 'r':
-                                docBuf.append(ChatColor.WHITE);
-                                break;
+                                case '0':
+                                    docBuf.append(ChatColor.BLACK);
+                                    break;
+                                case '1':
+                                    docBuf.append(ChatColor.DARK_BLUE);
+                                    break;
+                                case '2':
+                                    docBuf.append(ChatColor.DARK_GREEN);
+                                    break;
+                                case '3':
+                                    docBuf.append(ChatColor.DARK_AQUA);
+                                    break;
+                                case '4':
+                                    docBuf.append(ChatColor.DARK_RED);
+                                    break;
+                                case '5':
+                                    docBuf.append(ChatColor.DARK_PURPLE);
+                                    break;
+                                case '6':
+                                    docBuf.append(ChatColor.GOLD);
+                                    break;
+                                case '7':
+                                    docBuf.append(ChatColor.GRAY);
+                                    break;
+                                case '8':
+                                    docBuf.append(ChatColor.DARK_GRAY);
+                                    break;
+                                case '9':
+                                    docBuf.append(ChatColor.BLUE);
+                                    break;
+                                case 'a':
+                                    docBuf.append(ChatColor.GREEN);
+                                    break;
+                                case 'b':
+                                    docBuf.append(ChatColor.AQUA);
+                                    break;
+                                case 'c':
+                                    docBuf.append(ChatColor.RED);
+                                    break;
+                                case 'd':
+                                    docBuf.append(ChatColor.LIGHT_PURPLE);
+                                    break;
+                                case 'e':
+                                    docBuf.append(ChatColor.YELLOW);
+                                    break;
+                                case 'f':
+                                    docBuf.append(ChatColor.WHITE);
+                                    break;
+                                case 'r':
+                                    docBuf.append(ChatColor.WHITE);
+                                    break;
                             }
-                        } else {
+                        }
+                        else {
                             docBuf.append(l);
                         }
                     }
@@ -602,30 +633,34 @@ abstract public class Commands {
             r = new BufferedReader(new InputStreamReader(RPGItems.p.getResource("languages.txt"), "UTF-8"));
             String line = null;
             while ((line = r.readLine()) != null) {
-                String []args = line.split("=");
+                String[] args = line.split("=");
                 langMap.put(args[0], args[1]);
             }
-        } catch (UnsupportedEncodingException e) {
+        }
+        catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             try {
                 r.close();
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-        return langMap;        
+        return langMap;
     }
-    
+
     public static void generateHelp(String locale) {
         BufferedWriter w = null;
-        
+
         HashMap<String, String> langMap = getMap();
-        
+
         try {
             File out = new File(RPGItems.p.getDataFolder(), Calendar.getInstance().get(Calendar.YEAR) + "-" + Calendar.getInstance().get(Calendar.MONTH) + "-" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "-" + locale + ".md");
             if (out.exists()) {
@@ -671,7 +706,8 @@ abstract public class Commands {
                                 }
                                 docStr += out2.toString();
                             }
-                        } else {
+                        }
+                        else {
                             docStr = Locale.get(docStr.substring(1), locale);
                         }
                     }
@@ -687,60 +723,61 @@ abstract public class Commands {
                                 docBuf.append("<span style='color:#");
                             }
                             switch (l) {
-                            case '0':
-                                docBuf.append("000000");
-                                break;
-                            case '1':
-                                docBuf.append("0000aa");
-                                break;
-                            case '2':
-                                docBuf.append("00aa00");
-                                break;
-                            case '3':
-                                docBuf.append("00aaaa");
-                                break;
-                            case '4':
-                                docBuf.append("aa0000");
-                                break;
-                            case '5':
-                                docBuf.append("aa00aa");
-                                break;
-                            case '6':
-                                docBuf.append("ffaa00");
-                                break;
-                            case '7':
-                                docBuf.append("aaaaaa");
-                                break;
-                            case '8':
-                                docBuf.append("555555");
-                                break;
-                            case '9':
-                                docBuf.append("5555ff");
-                                break;
-                            case 'a':
-                                docBuf.append("55ff55");
-                                break;
-                            case 'b':
-                                docBuf.append("55ffff");
-                                break;
-                            case 'c':
-                                docBuf.append("ff5555");
-                                break;
-                            case 'd':
-                                docBuf.append("ff55ff");
-                                break;
-                            case 'e':
-                                docBuf.append("ffff55");
-                                break;
-                            case 'f':
-                                docBuf.append("ffffff");
-                                break;
-                            case 'r':
-                                docBuf.append("'></span'");
-                                break;
+                                case '0':
+                                    docBuf.append("000000");
+                                    break;
+                                case '1':
+                                    docBuf.append("0000aa");
+                                    break;
+                                case '2':
+                                    docBuf.append("00aa00");
+                                    break;
+                                case '3':
+                                    docBuf.append("00aaaa");
+                                    break;
+                                case '4':
+                                    docBuf.append("aa0000");
+                                    break;
+                                case '5':
+                                    docBuf.append("aa00aa");
+                                    break;
+                                case '6':
+                                    docBuf.append("ffaa00");
+                                    break;
+                                case '7':
+                                    docBuf.append("aaaaaa");
+                                    break;
+                                case '8':
+                                    docBuf.append("555555");
+                                    break;
+                                case '9':
+                                    docBuf.append("5555ff");
+                                    break;
+                                case 'a':
+                                    docBuf.append("55ff55");
+                                    break;
+                                case 'b':
+                                    docBuf.append("55ffff");
+                                    break;
+                                case 'c':
+                                    docBuf.append("ff5555");
+                                    break;
+                                case 'd':
+                                    docBuf.append("ff55ff");
+                                    break;
+                                case 'e':
+                                    docBuf.append("ffff55");
+                                    break;
+                                case 'f':
+                                    docBuf.append("ffffff");
+                                    break;
+                                case 'r':
+                                    docBuf.append("'></span'");
+                                    break;
                             }
                             docBuf.append("'>");
-                        } else {
+                        }
+                        else {
                             docBuf.append(l);
                         }
                     }
@@ -756,12 +793,15 @@ abstract public class Commands {
             sdf.applyPattern("dd MMM yyyy HH:mm:ss z");
             w.write(sdf.format(new Date()));
 
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             try {
                 w.close();
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -820,7 +860,8 @@ class ArgumentInteger extends CommandArgument {
     public void init(String a) {
         if (a.length() == 0) {
             hasLimits = false;
-        } else {
+        }
+        else {
             hasLimits = true;
             String[] args = a.split(",");
             if (args.length != 2) {
@@ -840,14 +881,17 @@ class ArgumentInteger extends CommandArgument {
                     return new CommandError(String.format(Locale.get("message.error.integer.limit", locale), min, max));
                 }
                 return i;
-            } catch (NumberFormatException e) {
+            }
+            catch (NumberFormatException e) {
                 return new CommandError(String.format(Locale.get("message.error.integer.format", locale), in));
             }
-        } else {
+        }
+        else {
             try {
                 int i = Integer.parseInt(in);
                 return i;
-            } catch (NumberFormatException e) {
+            }
+            catch (NumberFormatException e) {
                 return new CommandError(String.format(Locale.get("message.error.integer.format", locale), in));
             }
         }
@@ -883,7 +927,8 @@ class ArgumentDouble extends CommandArgument {
     public void init(String a) {
         if (a.length() == 0) {
             hasLimits = false;
-        } else {
+        }
+        else {
             hasLimits = true;
             String[] args = a.split(",");
             if (args.length != 2) {
@@ -903,14 +948,17 @@ class ArgumentDouble extends CommandArgument {
                     return new CommandError(String.format(Locale.get("message.error.double.limit", locale), min, max));
                 }
                 return i;
-            } catch (NumberFormatException e) {
+            }
+            catch (NumberFormatException e) {
                 return new CommandError(String.format(Locale.get("message.error.double.format", locale), in));
             }
-        } else {
+        }
+        else {
             try {
                 double i = Double.parseDouble(in);
                 return i;
-            } catch (NumberFormatException e) {
+            }
+            catch (NumberFormatException e) {
                 return new CommandError(String.format(Locale.get("message.error.double.format", locale), in));
             }
         }
@@ -944,7 +992,8 @@ class ArgumentString extends CommandArgument {
     public void init(String a) {
         if (a.length() == 0) {
             maxLength = 0;
-        } else {
+        }
+        else {
             maxLength = Integer.parseInt(a);
         }
     }
@@ -1021,8 +1070,7 @@ class ArgumentConst extends CommandArgument {
 class ArgumentPlayer extends CommandArgument {
 
     @Override
-    public void init(String a) {
-    }
+    public void init(String a) {}
 
     @Override
     public Object parse(String in, String locale) {
@@ -1104,7 +1152,8 @@ class ArgumentOption extends CommandArgument {
                 out.append(options[i]).append(i == options.length - 1 ? ']' : ',');
             }
             return out.toString();
-        } else {
+        }
+        else {
             return "[" + shortVersion + "]";
         }
     }
@@ -1205,12 +1254,13 @@ class ArgumentEnum extends CommandArgument {
     @Override
     public void init(String a) {
         try {
-           e = Class.forName(a);
-           if (!e.isEnum()) {
-               throw new RuntimeException(a + " is not an enum");
-           }
-           enumConsts = Arrays.asList(e.getEnumConstants());
-        } catch (ClassNotFoundException e) {
+            e = Class.forName(a);
+            if (!e.isEnum()) {
+                throw new RuntimeException(a + " is not an enum");
+            }
+            enumConsts = Arrays.asList(e.getEnumConstants());
+        }
+        catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -1220,8 +1270,9 @@ class ArgumentEnum extends CommandArgument {
     public Object parse(String in, String locale) {
         Enum<?> en = null;
         try {
-            en = Enum.valueOf((Class<Enum>)e, in.toUpperCase());
-        } catch (IllegalArgumentException ex) {
+            en = Enum.valueOf((Class<Enum>) e, in.toUpperCase());
+        }
+        catch (IllegalArgumentException ex) {
             return new CommandError(String.format("%s is not a %s", in, e.getSimpleName()));
         }
         return en;

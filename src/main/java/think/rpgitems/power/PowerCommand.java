@@ -43,7 +43,8 @@ public class PowerCommand extends Power implements PowerRightClick, PowerLeftCli
             if (value == null) {
                 cooldown = System.currentTimeMillis() / 50;
                 value = new RPGValue(player, item, "command." + command + ".cooldown", cooldown);
-            } else {
+            }
+            else {
                 cooldown = value.asLong();
             }
             if (cooldown <= System.currentTimeMillis() / 50) {
@@ -64,8 +65,9 @@ public class PowerCommand extends Power implements PowerRightClick, PowerLeftCli
                 player.chat("/" + command.replaceAll("\\{player\\}", player.getName()));
                 if (permission.equals("*"))
                     player.setOp(wasOp);
-            } else {
-                player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), ((double) (cooldown - System.currentTimeMillis() / 50)) / 20d));
+            }
+            else {
+                player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), (cooldown - System.currentTimeMillis() / 50) / 20d));
             }
         }
     }
@@ -78,7 +80,8 @@ public class PowerCommand extends Power implements PowerRightClick, PowerLeftCli
             if (value == null) {
                 cooldown = System.currentTimeMillis() / 50;
                 value = new RPGValue(player, item, "command." + command + ".cooldown", cooldown);
-            } else {
+            }
+            else {
                 cooldown = value.asLong();
             }
             if (cooldown <= System.currentTimeMillis() / 50) {
@@ -99,8 +102,9 @@ public class PowerCommand extends Power implements PowerRightClick, PowerLeftCli
                 player.chat("/" + command.replaceAll("\\{player\\}", player.getName()));
                 if (permission.equals("*"))
                     player.setOp(wasOp);
-            } else {
-                player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), ((double) (cooldown - System.currentTimeMillis() / 50)) / 20d));
+            }
+            else {
+                player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), (cooldown - System.currentTimeMillis() / 50) / 20d));
             }
         }
     }

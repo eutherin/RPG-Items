@@ -37,21 +37,23 @@ public class PowerFireball extends Power implements PowerRightClick {
         if (value == null) {
             cooldown = System.currentTimeMillis() / 50;
             value = new RPGValue(player, item, "tnt.fireball", cooldown);
-        } else {
+        }
+        else {
             cooldown = value.asLong();
         }
         if (cooldown <= System.currentTimeMillis() / 50) {
             value.set(System.currentTimeMillis() / 50 + cooldownTime);
             player.playSound(player.getLocation(), Sound.GHAST_FIREBALL, 1.0f, 1.0f);
             player.launchProjectile(SmallFireball.class);
-        } else {
-            player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), ((double) (cooldown - System.currentTimeMillis() / 50)) / 20d));
+        }
+        else {
+            player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), (cooldown - System.currentTimeMillis() / 50) / 20d));
         }
     }
 
     @Override
     public String displayText(String locale) {
-        return ChatColor.GREEN + String.format(Locale.get("power.fireball", locale), (double) cooldownTime / 20d);
+        return ChatColor.GREEN + String.format(Locale.get("power.fireball", locale), cooldownTime / 20d);
     }
 
     @Override

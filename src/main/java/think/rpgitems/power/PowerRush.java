@@ -39,7 +39,8 @@ public class PowerRush extends Power implements PowerRightClick {
         if (value == null) {
             cooldown = System.currentTimeMillis() / 50;
             value = new RPGValue(player, item, "rush.cooldown", cooldown);
-        } else {
+        }
+        else {
             cooldown = value.asLong();
         }
         if (cooldown <= System.currentTimeMillis() / 50) {

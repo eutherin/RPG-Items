@@ -14,7 +14,7 @@ public class UpdateChecker {
     private UpdateChecker() {}
 
     public static boolean updateAvailable() throws Exception {
-//        String checkType = Config.getInstance().getPreferBeta() ? "latest" : "release";
+        //        String checkType = Config.getInstance().getPreferBeta() ? "latest" : "release";
         String checkType = "latest";
         String version = RPGItems.p.getDescription().getVersion();
         InputStreamReader isr;

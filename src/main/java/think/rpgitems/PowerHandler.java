@@ -414,7 +414,7 @@ public class PowerHandler implements CommandHandler {
         ItemManager.save(RPGItems.p);
         sender.sendMessage(ChatColor.AQUA + Locale.get("message.power.ok", locale));
     }
-    
+
     @CommandString("rpgitem $n[] power skyhook $m[] $distance:i[]")
     @CommandDocumentation("$command.rpgitem.skyhook")
     @CommandGroup("item_power_skyhook")
@@ -428,7 +428,7 @@ public class PowerHandler implements CommandHandler {
         ItemManager.save(RPGItems.p);
         sender.sendMessage(ChatColor.AQUA + Locale.get("message.power.ok", locale));
     }
-    
+
     @CommandString("rpgitem $n[] power potiontick $amplifier:i[] $effect:s[]")
     @CommandDocumentation("$command.rpgitem.potiontick")
     @CommandGroup("item_power_potiontick")
