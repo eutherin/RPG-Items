@@ -9,13 +9,13 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import think.rpgitems.RPGItems;
+import think.rpgitems.config.Config;
 
 public class UpdateChecker {
     private UpdateChecker() {}
 
     public static boolean updateAvailable() throws Exception {
-        //        String checkType = Config.getInstance().getPreferBeta() ? "latest" : "release";
-        String checkType = "latest";
+        String checkType = Config.getInstance().getPreferBeta() ? "latest" : "release";
         String version = RPGItems.p.getDescription().getVersion();
         InputStreamReader isr;
 

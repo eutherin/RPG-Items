@@ -36,7 +36,6 @@ import org.mcstats.Metrics;
 import org.mcstats.Metrics.Graph;
 
 import think.rpgitems.commands.Commands;
-import think.rpgitems.config.ConfigUpdater;
 import think.rpgitems.data.Font;
 import think.rpgitems.data.Locale;
 import think.rpgitems.item.ItemManager;
@@ -64,7 +63,6 @@ import think.rpgitems.power.PowerUnbreaking;
 import think.rpgitems.support.WorldGuard;
 import think.rpgitems.util.UpdateChecker;
 
-@SuppressWarnings("deprecation")
 public class RPGItems extends JavaPlugin {
 
     public static RPGItems p;
@@ -101,7 +99,6 @@ public class RPGItems extends JavaPlugin {
     @Override
     public void onEnable() {
         Locale.init(this);
-        updateConfig();
         WorldGuard.init(this);
         ConfigurationSection conf = getConfig();
         if (conf.getBoolean("localeInv", false)) {
@@ -200,11 +197,6 @@ public class RPGItems extends JavaPlugin {
         return config;
     }
 
-    public void updateConfig() {
-        ConfigUpdater.updateConfig(getConfig());
-        saveConfig();
-    }
-
     @Override
     public void onDisable() {}
 
@@ -225,6 +217,10 @@ public class RPGItems extends JavaPlugin {
         for (String arg : args)
             out.append(arg).append(' ');
         return Commands.complete(sender, out.toString());
+    }
+
+    public void debug(String message) {
+        getLogger().info("[Debug] " + message);
     }
 
     private void checkForUpdates() {

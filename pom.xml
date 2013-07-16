@@ -20,11 +20,12 @@
 				<directory>${basedir}/src/main/resources/</directory>
 				<includes>
 					<include>*.yml</include>
+					<include>font.bin</include>
 					<include>.jenkins</include>
 				</includes>
 			</resource>
 			<resource>
-				<targetPath>com/me/tft_02/rpg-items/locale</targetPath>
+				<targetPath>think/rpg-items/locale</targetPath>
 				<filtering>true</filtering>
 				<directory>${basedir}/src/main/resources/locale/</directory>
 				<includes>
@@ -91,16 +92,16 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>net.sf.trove4j</groupId>
-			<artifactId>trove4j</artifactId>
-			<version>3.0.3</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>bukkit</artifactId>
 			<version>LATEST</version>
 			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.trove4j</groupId>
+			<artifactId>trove4j</artifactId>
+			<version>3.0.3</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
