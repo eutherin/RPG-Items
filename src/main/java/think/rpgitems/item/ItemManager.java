@@ -36,7 +36,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.FileUtil;
 
-import think.rpgitems.Plugin;
+import think.rpgitems.RPGItems;
 import think.rpgitems.power.Power;
 
 public class ItemManager {
@@ -45,12 +45,12 @@ public class ItemManager {
     public static HashMap<String, ItemGroup> groups = new HashMap<String, ItemGroup>();
     public static int currentPos = 0;
 
-    public static void load(Plugin plugin) {
+    public static void load(RPGItems rPGItems) {
         try {
             FileInputStream in = null;
             YamlConfiguration itemStorage = null;
             try {
-                File f = new File(plugin.getDataFolder(), "items.yml");
+                File f = new File(rPGItems.getDataFolder(), "items.yml");
                 in = new FileInputStream(f);
                 byte[] data = new byte[(int) f.length()];
                 in.read(data);
@@ -91,16 +91,16 @@ public class ItemManager {
             }
         } catch (Exception e) {
             //Something went wrong
-            plugin.getLogger().severe("Error loading items.yml. Creating backup");
-            File file = new File(plugin.getDataFolder(), "items.yml");
+            rPGItems.getLogger().severe("Error loading items.yml. Creating backup");
+            File file = new File(rPGItems.getDataFolder(), "items.yml");
             long time = System.currentTimeMillis();
-            File backup = new File(plugin.getDataFolder(), time + "-items.yml");
+            File backup = new File(rPGItems.getDataFolder(), time + "-items.yml");
             FileUtil.copy(file, backup);
-            File log = new File(plugin.getDataFolder(), time + "-log.txt");
+            File log = new File(rPGItems.getDataFolder(), time + "-log.txt");
             PrintStream ps = null;
             try {
                 ps = new PrintStream(log);
-                ps.printf("RPGItems (%s) ItemManager.load\r\n", plugin.getDescription().getVersion());
+                ps.printf("RPGItems (%s) ItemManager.load\r\n", rPGItems.getDescription().getVersion());
                 e.printStackTrace(ps);
             } catch (FileNotFoundException e1) {
                 e1.printStackTrace();
@@ -110,7 +110,7 @@ public class ItemManager {
         }
     }
 
-    public static void save(Plugin plugin) {
+    public static void save(RPGItems rPGItems) {
 
         YamlConfiguration itemStorage = new YamlConfiguration();
 
@@ -134,7 +134,7 @@ public class ItemManager {
         
         FileOutputStream out = null;
         try {
-            File f = new File(plugin.getDataFolder(), "items.yml");
+            File f = new File(rPGItems.getDataFolder(), "items.yml");
             out = new FileOutputStream(f);
             out.write(itemStorage.saveToString().getBytes("UTF-8"));
         } catch (FileNotFoundException e) {

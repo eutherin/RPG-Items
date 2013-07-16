@@ -4,7 +4,7 @@ description: >
   Create custom items in the style of games like Torchlight.
 
 authors: [thinkofdeath, TfT_02]
-main: think.rpgitems.Plugin
+main: think.rpgitems.RPGItems
 website: http://dev.bukkit.org/server-mods/rpg-items/
 softdepend: [WorldGuard]
 

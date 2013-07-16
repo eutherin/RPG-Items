@@ -45,7 +45,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import think.rpgitems.Events;
-import think.rpgitems.Plugin;
+import think.rpgitems.RPGItems;
 import think.rpgitems.data.Font;
 import think.rpgitems.data.Locale;
 import think.rpgitems.data.RPGMetadata;
@@ -70,8 +70,8 @@ public class RPGItem {
     private int damageMin = 0, damageMax = 3;
     private int armour = 0;
     private String loreText = "";
-    private String type = Plugin.plugin.getConfig().getString("defaults.sword", "Sword");
-    private String hand = Plugin.plugin.getConfig().getString("defaults.hand", "One handed");
+    private String type = RPGItems.p.getConfig().getString("defaults.sword", "Sword");
+    private String hand = RPGItems.p.getConfig().getString("defaults.hand", "One handed");
     public boolean ignoreWorldGuard = false;
 
     public List<String> description = new ArrayList<String>();
@@ -117,8 +117,8 @@ public class RPGItem {
         name = s.getString("name");
         id = s.getInt("id");
         setDisplay(s.getString("display"), false);
-        setType(s.getString("type", Plugin.plugin.getConfig().getString("defaults.sword", "Sword")), false);
-        setHand(s.getString("hand", Plugin.plugin.getConfig().getString("defaults.hand", "One handed")), false);
+        setType(s.getString("type", RPGItems.p.getConfig().getString("defaults.sword", "Sword")), false);
+        setHand(s.getString("hand", RPGItems.p.getConfig().getString("defaults.hand", "One handed")), false);
         setLore(s.getString("lore"), false);
         description = (List<String>) s.getList("description", new ArrayList<String>());
         for (int i = 0; i < description.size(); i++) {
@@ -435,13 +435,13 @@ public class RPGItem {
             width = dWidth;
         String damageStr = null;
         if (damageMin == 0 && damageMax == 0 && armour != 0) {
-            damageStr = armour + "% " + Plugin.plugin.getConfig().getString("defaults.armour", "Armour");
+            damageStr = armour + "% " + RPGItems.p.getConfig().getString("defaults.armour", "Armour");
         } else if (armour == 0 && damageMin == 0 && damageMax == 0) {
             damageStr = null;
         } else if (damageMin == damageMax) {
-            damageStr = damageMin + " " + Plugin.plugin.getConfig().getString("defaults.damage", "Damage");
+            damageStr = damageMin + " " + RPGItems.p.getConfig().getString("defaults.damage", "Damage");
         } else {
-            damageStr = damageMin + "-" + damageMax + " " + Plugin.plugin.getConfig().getString("defaults.damage", "Damage");
+            damageStr = damageMin + "-" + damageMax + " " + RPGItems.p.getConfig().getString("defaults.damage", "Damage");
         }
         if (damageMin != 0 || damageMax != 0 || armour != 0) {
             dWidth = getStringWidth(damageStr);

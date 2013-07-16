@@ -34,7 +34,7 @@ import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import think.rpgitems.Plugin;
+import think.rpgitems.RPGItems;
 import think.rpgitems.data.Locale;
 import think.rpgitems.data.RPGValue;
 import think.rpgitems.power.types.PowerRightClick;
@@ -127,12 +127,12 @@ public class PowerIce extends Power implements PowerRightClick {
                                 }
 
                             }
-                        }).runTaskTimer(Plugin.plugin, 4 * 20 + new Random().nextInt(40), 3);
+                        }).runTaskTimer(RPGItems.p, 4 * 20 + new Random().nextInt(40), 3);
                     }
 
                 }
             };
-            run.runTaskTimer(Plugin.plugin, 0, 1);
+            run.runTaskTimer(RPGItems.p, 0, 1);
 
         } else {
             player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), ((double) (cooldown - System.currentTimeMillis() / 50)) / 20d));

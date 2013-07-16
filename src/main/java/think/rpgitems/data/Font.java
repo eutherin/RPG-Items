@@ -19,7 +19,7 @@ package think.rpgitems.data;
 import java.io.IOException;
 import java.io.InputStream;
 
-import think.rpgitems.Plugin;
+import think.rpgitems.RPGItems;
 
 public class Font {
     public static int[] widths;
@@ -28,7 +28,7 @@ public class Font {
         widths = new int[0xFFFF];
 
         try {
-            InputStream in = Plugin.plugin.getResource("font.bin");
+            InputStream in = RPGItems.p.getResource("font.bin");
             for (int i = 0; i < widths.length; i++) {
                 widths[i] = in.read();
             }

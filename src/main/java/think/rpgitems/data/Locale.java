@@ -37,7 +37,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import think.rpgitems.Plugin;
+import think.rpgitems.RPGItems;
 import think.rpgitems.item.ItemManager;
 import think.rpgitems.item.RPGItem;
 
@@ -51,24 +51,24 @@ public class Locale extends BukkitRunnable {
     
     private static HashMap<String, HashMap<String, String>> localeStrings = new HashMap<String, HashMap<String,String>>();
     
-    private Plugin plugin;
+    private RPGItems rPGItems;
     private long lastUpdate = 0;
     private File dataFolder;
     private String version;
-    private Locale(Plugin plugin) {
-        this.plugin = plugin;
-        lastUpdate = plugin.getConfig().getLong("lastLocaleUpdate", 0);
-        version = plugin.getDescription().getVersion();
-        if (!plugin.getConfig().getString("pluginVersion", "0.0").equals(version)) {
+    private Locale(RPGItems rPGItems) {
+        this.rPGItems = rPGItems;
+        lastUpdate = rPGItems.getConfig().getLong("lastLocaleUpdate", 0);
+        version = rPGItems.getDescription().getVersion();
+        if (!rPGItems.getConfig().getString("pluginVersion", "0.0").equals(version)) {
             lastUpdate = 0;
-            plugin.getConfig().set("pluginVersion", version);
-            plugin.saveConfig();
+            rPGItems.getConfig().set("pluginVersion", version);
+            rPGItems.saveConfig();
         }
-        dataFolder = plugin.getDataFolder();
-        reloadLocales(plugin);
-        if (!plugin.getConfig().contains("localeDownload")) {
-            plugin.getConfig().set("localeDownload", true);
-            plugin.saveConfig();
+        dataFolder = rPGItems.getDataFolder();
+        reloadLocales(rPGItems);
+        if (!rPGItems.getConfig().contains("localeDownload")) {
+            rPGItems.getConfig().set("localeDownload", true);
+            rPGItems.saveConfig();
         }
     }
     
@@ -81,7 +81,7 @@ public class Locale extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (!plugin.getConfig().getBoolean("localeDownload", true)) {
+        if (!rPGItems.getConfig().getBoolean("localeDownload", true)) {
             cancel();
         }
         try {
@@ -116,22 +116,22 @@ public class Locale extends BukkitRunnable {
         (new BukkitRunnable() {            
             @Override
             public void run() {
-                ConfigurationSection config = plugin.getConfig();
+                ConfigurationSection config = rPGItems.getConfig();
                 config.set("lastLocaleUpdate", lastUpdate);
-                plugin.saveConfig();
-                reloadLocales(plugin);
+                rPGItems.saveConfig();
+                reloadLocales(rPGItems);
                 for (RPGItem item : ItemManager.itemById.valueCollection()) {
                     item.rebuild();
                 }
             }
-        }).runTask(plugin);
+        }).runTask(rPGItems);
     }
     
-    public static void reloadLocales(Plugin plugin) {
+    public static void reloadLocales(RPGItems rPGItems) {
         localeStrings.clear();
-        localeStrings.put("en_GB", loadLocaleStream(plugin.getResource("locale/en_GB.lang")));
+        localeStrings.put("en_GB", loadLocaleStream(rPGItems.getResource("locale/en_GB.lang")));
 
-        File localesFolder = new File(plugin.getDataFolder(), "locale/");
+        File localesFolder = new File(rPGItems.getDataFolder(), "locale/");
         localesFolder.mkdirs();
         
         for (File file : localesFolder.listFiles()) {
@@ -191,7 +191,7 @@ public class Locale extends BukkitRunnable {
                     canLocale = false;
                 }
             } catch (Exception e) {
-                Plugin.plugin.getLogger().warning("Failed to get player locale");
+                RPGItems.p.getLogger().warning("Failed to get player locale");
                 canLocale = false;
             }
             firstTime = false;
@@ -204,15 +204,15 @@ public class Locale extends BukkitRunnable {
             Object locale = getLocale.invoke(minePlayer, (Object[]) null);
             return (String) language.get(locale);
         } catch (Exception e) {
-            Plugin.plugin.getLogger().warning("Failed to get player locale");
+            RPGItems.p.getLogger().warning("Failed to get player locale");
             canLocale = false;
         } 
         //Any error default to en_GB
         return "en_GB";
     }
 
-    public static void init(Plugin plugin) {
-        (new Locale(plugin)).runTaskTimerAsynchronously(plugin, 0, 24l * 60l * 60l * 20l);
+    public static void init(RPGItems rPGItems) {
+        (new Locale(rPGItems)).runTaskTimerAsynchronously(rPGItems, 0, 24l * 60l * 60l * 20l);
     }
     
     public static String get(String key, String locale) {

@@ -22,14 +22,14 @@ import java.io.IOException;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import think.rpgitems.Plugin;
+import think.rpgitems.RPGItems;
 
 public class Update01To02 implements Updater {
 
     @Override
     public void update(ConfigurationSection section) {
 
-        File iFile = new File(Plugin.plugin.getDataFolder(), "items.yml");
+        File iFile = new File(RPGItems.p.getDataFolder(), "items.yml");
         YamlConfiguration itemStorage = YamlConfiguration.loadConfiguration(iFile);
         ConfigurationSection iSection = itemStorage.getConfigurationSection("items");
 
@@ -51,7 +51,7 @@ public class Update01To02 implements Updater {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Plugin.plugin.saveConfig();
+        RPGItems.p.saveConfig();
     }
 
 }

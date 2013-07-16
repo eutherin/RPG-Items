@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import think.rpgitems.Plugin;
+import think.rpgitems.RPGItems;
 import think.rpgitems.item.ItemManager;
 import think.rpgitems.item.RPGItem;
 import think.rpgitems.power.Power;
@@ -15,9 +15,9 @@ public class Update03To04 implements Updater {
 
     @Override
     public void update(ConfigurationSection section) {
-        Plugin plugin = Plugin.plugin;
+        RPGItems rPGItems = RPGItems.p;
         
-        ItemManager.load(plugin);
+        ItemManager.load(rPGItems);
 
         for (RPGItem item : ItemManager.itemByName.values()) {
             Iterator<Power> it = item.powers.iterator();
@@ -35,7 +35,7 @@ public class Update03To04 implements Updater {
             }
         }
         
-        ItemManager.save(plugin);
+        ItemManager.save(rPGItems);
         ItemManager.itemByName.clear();
         ItemManager.itemById.clear();       
         section.set("version", "0.4"); 

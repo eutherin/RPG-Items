@@ -1,7 +1,7 @@
 /*
  * Updater for Bukkit.
  *
- * This class provides the means to safetly and easily update a plugin, or check to see if it is updated using dev.bukkit.org
+ * This class provides the means to safetly and easily update a p, or check to see if it is updated using dev.bukkit.org
  */
 
 package think.rpgitems;
@@ -34,14 +34,14 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
- * Check dev.bukkit.org to find updates for a given plugin, and download the updates if needed.
+ * Check dev.bukkit.org to find updates for a given p, and download the updates if needed.
  * <p>
- * <b>VERY, VERY IMPORTANT</b>: Because there are no standards for adding auto-update toggles in your plugin's config, this system provides NO CHECK WITH YOUR CONFIG to make sure the user has allowed auto-updating. <br>
+ * <b>VERY, VERY IMPORTANT</b>: Because there are no standards for adding auto-update toggles in your p's config, this system provides NO CHECK WITH YOUR CONFIG to make sure the user has allowed auto-updating. <br>
  * It is a <b>BUKKIT POLICY</b> that you include a boolean value in your config that prevents the auto-updater from running <b>AT ALL</b>. <br>
- * If you fail to include this option in your config, your plugin will be <b>REJECTED</b> when you attempt to submit it to dev.bukkit.org.
+ * If you fail to include this option in your config, your p will be <b>REJECTED</b> when you attempt to submit it to dev.bukkit.org.
  * <p>
  * An example of a good configuration option would be something similar to 'auto-update: true' - if this value is set to false you may NOT run the auto-updater. <br>
- * If you are unsure about these rules, please read the plugin submission guidelines: http://goo.gl/8iU5l
+ * If you are unsure about these rules, please read the p submission guidelines: http://goo.gl/8iU5l
  * 
  * @author H31IX
  */
@@ -58,7 +58,7 @@ public class Updater {
                             // updates
     private boolean announce; // Whether to announce file downloads
     private URL url; // Connecting to RSS
-    private File file; // The plugin's file
+    private File file; // The p's file
     private Thread thread; // Updater thread
     private static final String DBOUrl = "http://dev.bukkit.org/server-mods/"; // Slugs
                                                                                // will
@@ -129,7 +129,7 @@ public class Updater {
          */
         FAIL_NOVERSION,
         /**
-         * The slug provided by the plugin running the updater was invalid and doesn't exist on DBO.
+         * The slug provided by the p running the updater was invalid and doesn't exist on DBO.
          */
         FAIL_BADSLUG,
         /**
@@ -159,12 +159,12 @@ public class Updater {
     /**
      * Initialize the updater
      * 
-     * @param plugin
-     * The plugin that is checking for an update.
+     * @param p
+     * The p that is checking for an update.
      * @param slug
      * The dev.bukkit.org slug of the project (http://dev.bukkit.org/server-mods/SLUG_IS_HERE)
      * @param file
-     * The file that the plugin is running from, get this by doing this.getFile() from within your main class.
+     * The file that the p is running from, get this by doing this.getFile() from within your main class.
      * @param type
      * Specify the type of update this will be. See {@link UpdateType}
      * @param announce
@@ -180,7 +180,7 @@ public class Updater {
             url = new URL(DBOUrl + slug + "/files.rss");
         } catch (MalformedURLException ex) {
             // Invalid slug
-            plugin.getLogger().warning("The author of this plugin (" + plugin.getDescription().getAuthors().get(0) + ") has misconfigured their Auto Update system");
+            plugin.getLogger().warning("The author of this p (" + plugin.getDescription().getAuthors().get(0) + ") has misconfigured their Auto Update system");
             plugin.getLogger().warning("The project slug given ('" + slug + "') is invalid. Please nag the author about this.");
             result = Updater.UpdateResult.FAIL_BADSLUG; // Bad slug! Bad!
         }
@@ -325,7 +325,7 @@ public class Updater {
             e = null;
             zipFile.close();
             zipFile = null;
-            // Move any plugin data folders that were included to the right
+            // Move any p data folders that were included to the right
             // place, Bukkit won't do this for us.
             for (File dFile : new File(zipPath).listFiles()) {
                 if (dFile.isDirectory()) {
@@ -429,7 +429,7 @@ public class Updater {
     }
 
     /**
-     * Check to see if the program should continue by evaluation whether the plugin is already updated, or shouldn't be updated
+     * Check to see if the program should continue by evaluation whether the p is already updated, or shouldn't be updated
      */
     private boolean versionCheck(String title) {
         if (type != UpdateType.NO_VERSION_CHECK) {
@@ -456,7 +456,7 @@ public class Updater {
                 }
             } else {
                 // The file's name did not contain the string 'vVersion'
-                plugin.getLogger().warning("The author of this plugin (" + plugin.getDescription().getAuthors().get(0) + ") has misconfigured their Auto Update system");
+                plugin.getLogger().warning("The author of this p (" + plugin.getDescription().getAuthors().get(0) + ") has misconfigured their Auto Update system");
                 plugin.getLogger().warning("Files uploaded to BukkitDev should contain the version number, seperated from the name by a 'v', such as PluginName v1.0");
                 plugin.getLogger().warning("Please notify the author of this error.");
                 result = Updater.UpdateResult.FAIL_NOVERSION;
@@ -568,7 +568,7 @@ public class Updater {
                         if (fileLink != null && type != UpdateType.NO_DOWNLOAD) {
                             String name = file.getName();
                             // If it's a zip file, it shouldn't be downloaded as
-                            // the plugin's name
+                            // the p's name
                             if (fileLink.endsWith(".zip")) {
                                 String[] split = fileLink.split("/");
                                 name = split[split.length - 1];
