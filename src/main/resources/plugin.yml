@@ -1,8 +1,13 @@
-name: RPG Items
+name: RPG-Items
+version: ${project.version}-b${BUILD_NUMBER}
+description: >
+  Create custom items in the style of games like Torchlight.
+
+authors: [thinkofdeath, TfT_02]
 main: think.rpgitems.Plugin
-version: ${project_version}
-dev-url: http://dev.bukkit.org/server-mods/rpg-items/
+website: http://dev.bukkit.org/server-mods/rpg-items/
 softdepend: [WorldGuard]
+
 commands:
     rpgitem:
         description: RPG Items
