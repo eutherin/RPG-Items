@@ -42,19 +42,20 @@ import think.rpgitems.item.ItemManager;
 import think.rpgitems.item.RPGItem;
 
 public class Locale extends BukkitRunnable {
-    
+
     private static Method getHandle;
     private static Method getLocale;
     private static Field language;
     private static boolean canLocale = true;
     private static boolean firstTime = true;
-    
-    private static HashMap<String, HashMap<String, String>> localeStrings = new HashMap<String, HashMap<String,String>>();
-    
+
+    private static HashMap<String, HashMap<String, String>> localeStrings = new HashMap<String, HashMap<String, String>>();
+
     private RPGItems rPGItems;
     private long lastUpdate = 0;
     private File dataFolder;
     private String version;
+
     private Locale(RPGItems rPGItems) {
         this.rPGItems = rPGItems;
         lastUpdate = rPGItems.getConfig().getLong("lastLocaleUpdate", 0);
@@ -71,10 +72,10 @@ public class Locale extends BukkitRunnable {
             rPGItems.saveConfig();
         }
     }
-    
+
     private final static String localeUpdateURL = "http://198.199.127.128/rpgitems/index.php?page=localeget&lastupdate=";
     private final static String localeDownloadURL = "http://198.199.127.128/rpgitems/locale/%s/%s.lang";
-    
+
     public static Set<String> getLocales() {
         return localeStrings.keySet();
     }
@@ -88,7 +89,7 @@ public class Locale extends BukkitRunnable {
             URL updateURL = new URL(localeUpdateURL + lastUpdate);
             lastUpdate = System.currentTimeMillis();
             URLConnection conn = updateURL.openConnection();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));     
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
             ArrayList<String> locales = new ArrayList<String>();
             String line = null;
             while ((line = reader.readLine()) != null) {
@@ -102,7 +103,7 @@ public class Locale extends BukkitRunnable {
                 File outFile = new File(dataFolder, "locale/" + locale + ".lang");
                 InputStream in = downloadURL.openStream();
                 FileOutputStream out = new FileOutputStream(outFile);
-                byte []buf = new byte[1024];
+                byte[] buf = new byte[1024];
                 int bytesRead;
                 while ((bytesRead = in.read(buf)) != -1) {
                     out.write(buf, 0, bytesRead);
@@ -110,10 +111,11 @@ public class Locale extends BukkitRunnable {
                 in.close();
                 out.close();
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return;
         }
-        (new BukkitRunnable() {            
+        (new BukkitRunnable() {
             @Override
             public void run() {
                 ConfigurationSection config = rPGItems.getConfig();
@@ -126,14 +128,14 @@ public class Locale extends BukkitRunnable {
             }
         }).runTask(rPGItems);
     }
-    
+
     public static void reloadLocales(RPGItems rPGItems) {
         localeStrings.clear();
         localeStrings.put("en_GB", loadLocaleStream(rPGItems.getResource("locale/en_GB.lang")));
 
         File localesFolder = new File(rPGItems.getDataFolder(), "locale/");
         localesFolder.mkdirs();
-        
+
         for (File file : localesFolder.listFiles()) {
             if (!file.isDirectory() && file.getName().endsWith(".lang")) {
 
@@ -144,42 +146,48 @@ public class Locale extends BukkitRunnable {
                     map = map == null ? new HashMap<String, String>() : map;
                     in = new FileInputStream(file);
                     localeStrings.put(locale, loadLocaleStream(in, map));
-                } catch (FileNotFoundException e) {
+                }
+                catch (FileNotFoundException e) {
                     e.printStackTrace();
-                } finally {
+                }
+                finally {
                     try {
                         in.close();
-                    } catch (IOException e) {
+                    }
+                    catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-                
+
             }
         }
     }
-    
+
     private static HashMap<String, String> loadLocaleStream(InputStream in, HashMap<String, String> map) {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
             String line = null;
-            while((line = reader.readLine()) != null) {
-                if (line.startsWith("#")) continue;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("#"))
+                    continue;
                 String[] args = line.split("=");
                 map.put(args[0].trim(), args[1].trim());
             }
             return map;
-        } catch (UnsupportedEncodingException e) {
+        }
+        catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
-    
+
     private static HashMap<String, String> loadLocaleStream(InputStream in) {
         return loadLocaleStream(in, new HashMap<String, String>());
     }
-    
+
     public static String getPlayerLocale(Player player) {
         if (firstTime) {
             try {
@@ -190,7 +198,8 @@ public class Locale extends BukkitRunnable {
                 if (!language.getType().equals(String.class)) {
                     canLocale = false;
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 RPGItems.p.getLogger().warning("Failed to get player locale");
                 canLocale = false;
             }
@@ -200,13 +209,14 @@ public class Locale extends BukkitRunnable {
             return "en_GB";
         }
         try {
-            Object minePlayer = getHandle.invoke(player,(Object[]) null);
+            Object minePlayer = getHandle.invoke(player, (Object[]) null);
             Object locale = getLocale.invoke(minePlayer, (Object[]) null);
             return (String) language.get(locale);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             RPGItems.p.getLogger().warning("Failed to get player locale");
             canLocale = false;
-        } 
+        }
         //Any error default to en_GB
         return "en_GB";
     }
@@ -214,7 +224,7 @@ public class Locale extends BukkitRunnable {
     public static void init(RPGItems rPGItems) {
         (new Locale(rPGItems)).runTaskTimerAsynchronously(rPGItems, 0, 24l * 60l * 60l * 20l);
     }
-    
+
     public static String get(String key, String locale) {
         if (!localeStrings.containsKey(locale))
             return get(key);
@@ -223,7 +233,7 @@ public class Locale extends BukkitRunnable {
             return get(key);
         return strings.get(key);
     }
-    
+
     private static String get(String key) {
         HashMap<String, String> strings = localeStrings.get("en_GB");
         if (!strings.containsKey(key))

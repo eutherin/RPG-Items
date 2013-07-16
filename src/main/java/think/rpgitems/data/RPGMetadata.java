@@ -22,7 +22,7 @@ public class RPGMetadata extends TIntObjectHashMap<Object> {
     private final static String METADATA_PREFIX = ChatColor.COLOR_CHAR + "c" + ChatColor.COLOR_CHAR + "a" + ChatColor.COLOR_CHAR + "f" + ChatColor.COLOR_CHAR + "e";
 
     public static final int DURABILITY = 0;
-    
+
     public static boolean hasRPGMetadata(ItemStack item) {
         if (!item.hasItemMeta())
             return false;
@@ -50,54 +50,55 @@ public class RPGMetadata extends TIntObjectHashMap<Object> {
             off += 4;
             int key = index & 0x1F;
             int type = index >> 5;
-            switch(type) {
-            case 0: //Byte
-                int byteValue = parseByte(data, off);
-                off += 4;
-                meta.put(key, Byte.valueOf((byte) byteValue));
-                break;
-            case 1: //Short
-                int shortValue = parseShort(data, off);
-                off += 8;
-                meta.put(key, Short.valueOf((short) shortValue));
-                break;
-            case 2: //Int
-                int intValue = parseInt(data, off);
-                off += 16;
-                meta.put(key, Integer.valueOf(intValue));
-                break;
-            case 3: //Float
-                int floatValueBits = parseInt(data, off);
-                off += 16;
-                meta.put(key, Float.intBitsToFloat(floatValueBits));
-                break;
-            case 4: //String
-                int stringLength = parseShort(data, off);
-                off += 8;
-                byte[] bytes = new byte[stringLength];
-                for (int i = 0; i < stringLength; i++) {
-                    bytes[i] = (byte) parseByte(data, off);
+            switch (type) {
+                case 0: //Byte
+                    int byteValue = parseByte(data, off);
                     off += 4;
-                }
-                try {
-                    meta.put(key, new String(bytes, "UTF-8"));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                break;
+                    meta.put(key, Byte.valueOf((byte) byteValue));
+                    break;
+                case 1: //Short
+                    int shortValue = parseShort(data, off);
+                    off += 8;
+                    meta.put(key, Short.valueOf((short) shortValue));
+                    break;
+                case 2: //Int
+                    int intValue = parseInt(data, off);
+                    off += 16;
+                    meta.put(key, Integer.valueOf(intValue));
+                    break;
+                case 3: //Float
+                    int floatValueBits = parseInt(data, off);
+                    off += 16;
+                    meta.put(key, Float.intBitsToFloat(floatValueBits));
+                    break;
+                case 4: //String
+                    int stringLength = parseShort(data, off);
+                    off += 8;
+                    byte[] bytes = new byte[stringLength];
+                    for (int i = 0; i < stringLength; i++) {
+                        bytes[i] = (byte) parseByte(data, off);
+                        off += 4;
+                    }
+                    try {
+                        meta.put(key, new String(bytes, "UTF-8"));
+                    }
+                    catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         }
         return meta;
     }
-    
+
     private static int parseInt(String iStr, int off) {
         return (parseShort(iStr, off + 0) << 16) | parseShort(iStr, off + 8);
     }
-    
+
     private static int parseShort(String sStr, int off) {
         return (parseByte(sStr, off + 0) << 8) | parseByte(sStr, off + 4);
     }
-    
+
     private static int parseByte(String bStr, int off) {
         return Integer.parseInt("" + bStr.charAt(off + 1) + bStr.charAt(off + 3), 16);
     }
@@ -119,19 +120,23 @@ public class RPGMetadata extends TIntObjectHashMap<Object> {
                 index |= 0 << 5;
                 writeByte(out, index);
                 writeByte(out, ((Byte) value).intValue());
-            } else if (value instanceof Short) {
+            }
+            else if (value instanceof Short) {
                 index |= 1 << 5;
                 writeByte(out, index);
                 writeShort(out, ((Short) value).intValue());
-            } else if (value instanceof Integer) {
+            }
+            else if (value instanceof Integer) {
                 index |= 2 << 5;
                 writeByte(out, index);
                 writeInt(out, ((Integer) value).intValue());
-            } else if (value instanceof Float) {
+            }
+            else if (value instanceof Float) {
                 index |= 3 << 5;
                 writeByte(out, index);
                 writeInt(out, Float.floatToIntBits((Float) value));
-            } else if (value instanceof String) {
+            }
+            else if (value instanceof String) {
                 index |= 4 << 5;
                 writeByte(out, index);
                 writeString(out, (String) value);
@@ -149,7 +154,8 @@ public class RPGMetadata extends TIntObjectHashMap<Object> {
             for (byte b : data) {
                 writeByte(out, b);
             }
-        } catch (UnsupportedEncodingException e) {
+        }
+        catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
@@ -172,7 +178,7 @@ public class RPGMetadata extends TIntObjectHashMap<Object> {
         writeShort(out, s >> 16);
         writeShort(out, s & 0xFFFF);
     }
-    
+
     private void insertByte(StringBuilder out, int offset, int b) {
         String hex = Integer.toString(b, 16);
         out.insert(offset, ChatColor.COLOR_CHAR);

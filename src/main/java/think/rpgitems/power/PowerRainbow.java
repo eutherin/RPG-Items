@@ -50,7 +50,8 @@ public class PowerRainbow extends Power implements PowerRightClick {
         if (value == null) {
             cooldown = System.currentTimeMillis() / 50;
             value = new RPGValue(player, item, "arrow.rainbow", cooldown);
-        } else {
+        }
+        else {
             cooldown = value.asLong();
         }
         if (cooldown <= System.currentTimeMillis() / 50) {
@@ -68,6 +69,7 @@ public class PowerRainbow extends Power implements PowerRightClick {
                 ArrayList<Location> fallLocs = new ArrayList<Location>();
                 Random random = new Random();
 
+                @Override
                 public void run() {
 
                     Iterator<Location> l = fallLocs.iterator();
@@ -101,14 +103,15 @@ public class PowerRainbow extends Power implements PowerRightClick {
 
                 }
             }).runTaskTimer(RPGItems.p, 0, 5);
-        } else {
-            player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), ((double) (cooldown - System.currentTimeMillis() / 50)) / 20d));
+        }
+        else {
+            player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), (cooldown - System.currentTimeMillis() / 50) / 20d));
         }
     }
 
     @Override
     public String displayText(String locale) {
-        return ChatColor.GREEN + String.format(Locale.get("power.rainbow", locale), count, (double) cooldownTime / 20d);
+        return ChatColor.GREEN + String.format(Locale.get("power.rainbow", locale), count, cooldownTime / 20d);
     }
 
     @Override

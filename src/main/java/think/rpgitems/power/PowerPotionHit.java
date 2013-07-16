@@ -44,7 +44,7 @@ public class PowerPotionHit extends Power implements PowerHit {
 
     @Override
     public String displayText(String locale) {
-        return ChatColor.GREEN + String.format(Locale.get("power.potionhit", locale), (int) ((1d / (double) chance) * 100d), type.getName().toLowerCase().replace('_', ' '));
+        return ChatColor.GREEN + String.format(Locale.get("power.potionhit", locale), (int) ((1d / chance) * 100d), type.getName().toLowerCase().replace('_', ' '));
     }
 
     @Override

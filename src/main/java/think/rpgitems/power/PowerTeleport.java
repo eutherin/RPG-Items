@@ -45,7 +45,8 @@ public class PowerTeleport extends Power implements PowerRightClick, PowerProjec
         if (value == null) {
             cooldown = System.currentTimeMillis() / 50;
             value = new RPGValue(player, item, "teleport.cooldown", cooldown);
-        } else {
+        }
+        else {
             cooldown = value.asLong();
         }
         if (cooldown <= System.currentTimeMillis() / 50) {
@@ -70,7 +71,8 @@ public class PowerTeleport extends Power implements PowerRightClick, PowerProjec
                 Block block = bi.next();// world.getBlockAt(current);
                 if (!block.getType().isSolid() || (block.getType() == Material.AIR)) {
                     lastSafe = block;
-                } else {
+                }
+                else {
                     break;
                 }
                 // dist+= 0.5;
@@ -81,8 +83,9 @@ public class PowerTeleport extends Power implements PowerRightClick, PowerProjec
             player.teleport(newLoc);
             world.playEffect(newLoc, Effect.ENDER_SIGNAL, 0);
             world.playSound(newLoc, Sound.ENDERMAN_TELEPORT, 1.0f, 0.3f);
-        } else {
-            player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), ((double) (cooldown - System.currentTimeMillis() / 50)) / 20d));
+        }
+        else {
+            player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), (cooldown - System.currentTimeMillis() / 50) / 20d));
         }
     }
 
@@ -93,7 +96,8 @@ public class PowerTeleport extends Power implements PowerRightClick, PowerProjec
         if (value == null) {
             cooldown = System.currentTimeMillis() / 50;
             value = new RPGValue(player, item, "teleport.cooldown", cooldown);
-        } else {
+        }
+        else {
             cooldown = value.asLong();
         }
         if (cooldown <= System.currentTimeMillis() / 50) {
@@ -105,14 +109,14 @@ public class PowerTeleport extends Power implements PowerRightClick, PowerProjec
                 player.sendMessage(ChatColor.AQUA + Locale.get("message.too.far", Locale.getPlayerLocale(player)));
                 return;
             }
-            newLoc.setPitch(start.getPitch());
-            ;
+            newLoc.setPitch(start.getPitch());;
             newLoc.setYaw(start.getYaw());
             player.teleport(newLoc);
             world.playEffect(newLoc, Effect.ENDER_SIGNAL, 0);
             world.playSound(newLoc, Sound.ENDERMAN_TELEPORT, 1.0f, 0.3f);
-        } else {
-            player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), ((double) (cooldown - System.currentTimeMillis() / 50)) / 20d));
+        }
+        else {
+            player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), (cooldown - System.currentTimeMillis() / 50) / 20d));
         }
     }
 
@@ -135,6 +139,6 @@ public class PowerTeleport extends Power implements PowerRightClick, PowerProjec
 
     @Override
     public String displayText(String locale) {
-        return ChatColor.GREEN + String.format(Locale.get("power.teleport", locale), distance, (double) cooldownTime / 20d);
+        return ChatColor.GREEN + String.format(Locale.get("power.teleport", locale), distance, cooldownTime / 20d);
     }
 }

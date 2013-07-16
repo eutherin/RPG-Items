@@ -34,7 +34,7 @@ public class PowerUnbreaking extends Power implements PowerHit {
     @SuppressWarnings("deprecation")
     @Override
     public void hit(Player player, LivingEntity e) {
-        if (random.nextDouble() < ((double) level) / 100d) {
+        if (random.nextDouble() < (level) / 100d) {
             System.out.println(player.getItemInHand().getDurability());
             player.getItemInHand().setDurability((short) (player.getItemInHand().getDurability() - 1));
             System.out.println(player.getItemInHand().getDurability());

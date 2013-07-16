@@ -131,8 +131,8 @@ public class RPGItems extends JavaPlugin {
             }
             metrics.addGraph(graph);
             metrics.start();
-        } catch (Exception e) {
         }
+        catch (Exception e) {}
         Commands.register(new Handler());
         Commands.register(new PowerHandler());
         new PowerTicker().runTaskTimer(this, 0, 1);
@@ -149,14 +149,16 @@ public class RPGItems extends JavaPlugin {
                 f.createNewFile();
             out = new FileOutputStream(f);
             out.write(config.saveToString().getBytes("UTF-8"));
-        } catch (FileNotFoundException e) {
-        } catch (UnsupportedEncodingException e) {
-        } catch (IOException e) {
-        } finally {
+        }
+        catch (FileNotFoundException e) {}
+        catch (UnsupportedEncodingException e) {}
+        catch (IOException e) {}
+        finally {
             try {
                 if (out != null)
                     out.close();
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -176,14 +178,16 @@ public class RPGItems extends JavaPlugin {
             in.read(data);
             String str = new String(data, "UTF-8");
             config.loadFromString(str);
-        } catch (FileNotFoundException e) {
-        } catch (IOException e) {
-        } catch (InvalidConfigurationException e) {
-        } finally {
+        }
+        catch (FileNotFoundException e) {}
+        catch (IOException e) {}
+        catch (InvalidConfigurationException e) {}
+        finally {
             try {
                 if (in != null)
                     in.close();
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -202,8 +206,7 @@ public class RPGItems extends JavaPlugin {
     }
 
     @Override
-    public void onDisable() {
-    }
+    public void onDisable() {}
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

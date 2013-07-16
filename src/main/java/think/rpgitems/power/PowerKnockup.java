@@ -41,7 +41,7 @@ public class PowerKnockup extends Power implements PowerHit {
 
     @Override
     public String displayText(String locale) {
-        return ChatColor.GREEN + String.format(Locale.get("power.knockup", locale), (int) ((1d / (double) chance) * 100d));
+        return ChatColor.GREEN + String.format(Locale.get("power.knockup", locale), (int) ((1d / chance) * 100d));
     }
 
     @Override

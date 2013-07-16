@@ -50,7 +50,8 @@ public class PowerIce extends Power implements PowerRightClick {
         if (value == null) {
             cooldown = System.currentTimeMillis() / 50;
             value = new RPGValue(player, item, "ice.cooldown", cooldown);
-        } else {
+        }
+        else {
             cooldown = value.asLong();
         }
         if (cooldown <= System.currentTimeMillis() / 50) {
@@ -61,6 +62,7 @@ public class PowerIce extends Power implements PowerRightClick {
             block.setDropItem(false);
             BukkitRunnable run = new BukkitRunnable() {
 
+                @Override
                 public void run() {
                     boolean hit = false;
                     World world = block.getWorld();
@@ -110,6 +112,7 @@ public class PowerIce extends Power implements PowerRightClick {
                         (new BukkitRunnable() {
                             Random random = new Random();
 
+                            @Override
                             public void run() {
                                 for (int i = 0; i < 4; i++) {
                                     if (changedBlocks.isEmpty()) {
@@ -134,8 +137,9 @@ public class PowerIce extends Power implements PowerRightClick {
             };
             run.runTaskTimer(RPGItems.p, 0, 1);
 
-        } else {
-            player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), ((double) (cooldown - System.currentTimeMillis() / 50)) / 20d));
+        }
+        else {
+            player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), (cooldown - System.currentTimeMillis() / 50) / 20d));
         }
     }
 
@@ -158,7 +162,7 @@ public class PowerIce extends Power implements PowerRightClick {
 
     @Override
     public String displayText(String locale) {
-        return ChatColor.GREEN + String.format(Locale.get("power.ice", locale), (double) cooldownTime / 20d);
+        return ChatColor.GREEN + String.format(Locale.get("power.ice", locale), cooldownTime / 20d);
     }
 
     @Override
