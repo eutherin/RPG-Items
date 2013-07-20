@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>think.rpgitems</groupId>
 	<artifactId>RPGItems</artifactId>
-	<version>3.4</version>
+	<version>3.4.1-dev</version>
 	<name>RPG-Items</name>
 	<url>https://github.com/TfT-02/RPG-Items</url>
 	<issueManagement>

@@ -6,6 +6,9 @@ Key:
   ! Change
   - Removal
 
+Version 3.4.1:
+
+
 Version 3.4:
 + Added an update checker, will only check if there's a new version available
 - Removed auto updater
