@@ -66,6 +66,8 @@ import think.rpgitems.power.PowerUnbreakable;
 import think.rpgitems.power.PowerUnbreaking;
 import think.rpgitems.support.WorldGuard;
 import think.rpgitems.util.UpdateChecker;
+import think.rpgitems.util.commands.Handler;
+import think.rpgitems.util.commands.PowerHandler;
 
 public class RPGItems extends JavaPlugin {
 

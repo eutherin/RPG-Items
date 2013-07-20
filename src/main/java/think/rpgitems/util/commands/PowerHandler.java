@@ -1,4 +1,4 @@
-package think.rpgitems;
+package think.rpgitems.util.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
+import think.rpgitems.RPGItems;
 import think.rpgitems.commands.CommandDocumentation;
 import think.rpgitems.commands.CommandGroup;
 import think.rpgitems.commands.CommandHandler;

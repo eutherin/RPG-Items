@@ -1,4 +1,4 @@
-package think.rpgitems;
+package think.rpgitems.util.commands;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
+import think.rpgitems.RPGItems;
 import think.rpgitems.commands.CommandDocumentation;
 import think.rpgitems.commands.CommandGroup;
 import think.rpgitems.commands.CommandHandler;
