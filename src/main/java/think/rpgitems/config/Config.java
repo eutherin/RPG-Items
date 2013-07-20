@@ -1,6 +1,5 @@
 package think.rpgitems.config;
 
-
 public class Config extends AutoUpdateConfigLoader {
     private static Config instance;
 

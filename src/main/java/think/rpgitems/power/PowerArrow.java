@@ -22,9 +22,9 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 
-import think.rpgitems.Events;
 import think.rpgitems.data.Locale;
 import think.rpgitems.data.RPGValue;
+import think.rpgitems.listeners.EntityListener;
 import think.rpgitems.power.types.PowerRightClick;
 
 public class PowerArrow extends Power implements PowerRightClick {
@@ -46,7 +46,7 @@ public class PowerArrow extends Power implements PowerRightClick {
             value.set(System.currentTimeMillis() / 50 + cooldownTime);
             player.playSound(player.getLocation(), Sound.SHOOT_ARROW, 1.0f, 1.0f);
             Arrow arrow = player.launchProjectile(Arrow.class);
-            Events.removeArrows.put(arrow.getEntityId(), (byte) 1);
+            EntityListener.removeArrows.put(arrow.getEntityId(), (byte) 1);
         }
         else {
             player.sendMessage(ChatColor.AQUA + String.format(Locale.get("message.cooldown", Locale.getPlayerLocale(player)), (cooldown - System.currentTimeMillis() / 50) / 20d));

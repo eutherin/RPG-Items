@@ -24,6 +24,8 @@ import think.rpgitems.data.Locale;
 import think.rpgitems.item.ItemManager;
 import think.rpgitems.item.Quality;
 import think.rpgitems.item.RPGItem;
+import think.rpgitems.listeners.EntityListener;
+import think.rpgitems.listeners.InventoryListener;
 import think.rpgitems.power.Power;
 import think.rpgitems.support.WorldGuard;
 
@@ -509,7 +511,7 @@ public class Handler implements CommandHandler {
                 }
             }
             player.openInventory(recipeInventory);
-            Events.recipeWindows.put(player.getName(), item.getID());
+            InventoryListener.recipeWindows.put(player.getName(), item.getID());
         }
         else {
             sender.sendMessage(ChatColor.RED + Locale.get("message.error.only.player", locale));
@@ -533,16 +535,16 @@ public class Handler implements CommandHandler {
         String typeS = type.toString();
         if (chance > 0) {
             item.dropChances.put(typeS, chance);
-            if (!Events.drops.containsKey(typeS)) {
-                Events.drops.put(typeS, new HashSet<Integer>());
+            if (!EntityListener.drops.containsKey(typeS)) {
+                EntityListener.drops.put(typeS, new HashSet<Integer>());
             }
-            Set<Integer> set = Events.drops.get(typeS);
+            Set<Integer> set = EntityListener.drops.get(typeS);
             set.add(item.getID());
         }
         else {
             item.dropChances.remove(typeS);
-            if (Events.drops.containsKey(typeS)) {
-                Set<Integer> set = Events.drops.get(typeS);
+            if (EntityListener.drops.containsKey(typeS)) {
+                Set<Integer> set = EntityListener.drops.get(typeS);
                 set.remove(item.getID());
             }
         }

@@ -44,11 +44,11 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
-import think.rpgitems.Events;
 import think.rpgitems.RPGItems;
 import think.rpgitems.data.Font;
 import think.rpgitems.data.Locale;
 import think.rpgitems.data.RPGMetadata;
+import think.rpgitems.listeners.EntityListener;
 import think.rpgitems.power.Power;
 import think.rpgitems.power.types.PowerHit;
 import think.rpgitems.power.types.PowerLeftClick;
@@ -179,16 +179,16 @@ public class RPGItem {
                 chance = Math.min(chance, 100.0);
                 if (chance > 0) {
                     dropChances.put(key, chance);
-                    if (!Events.drops.containsKey(key)) {
-                        Events.drops.put(key, new HashSet<Integer>());
+                    if (!EntityListener.drops.containsKey(key)) {
+                        EntityListener.drops.put(key, new HashSet<Integer>());
                     }
-                    Set<Integer> set = Events.drops.get(key);
+                    Set<Integer> set = EntityListener.drops.get(key);
                     set.add(getID());
                 }
                 else {
                     dropChances.remove(key);
-                    if (Events.drops.containsKey(key)) {
-                        Set<Integer> set = Events.drops.get(key);
+                    if (EntityListener.drops.containsKey(key)) {
+                        Set<Integer> set = EntityListener.drops.get(key);
                         set.remove(getID());
                     }
                 }

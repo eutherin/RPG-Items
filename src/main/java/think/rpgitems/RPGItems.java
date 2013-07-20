@@ -39,6 +39,10 @@ import think.rpgitems.commands.Commands;
 import think.rpgitems.data.Font;
 import think.rpgitems.data.Locale;
 import think.rpgitems.item.ItemManager;
+import think.rpgitems.listeners.BlockListener;
+import think.rpgitems.listeners.EntityListener;
+import think.rpgitems.listeners.InventoryListener;
+import think.rpgitems.listeners.PlayerListener;
 import think.rpgitems.power.Power;
 import think.rpgitems.power.PowerArrow;
 import think.rpgitems.power.PowerCommand;
@@ -102,9 +106,12 @@ public class RPGItems extends JavaPlugin {
         WorldGuard.init(this);
         ConfigurationSection conf = getConfig();
         if (conf.getBoolean("localeInv", false)) {
-            Events.useLocaleInv = true;
+            InventoryListener.useLocaleInv = true;
         }
-        getServer().getPluginManager().registerEvents(new Events(), this);
+        getServer().getPluginManager().registerEvents(new BlockListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        getServer().getPluginManager().registerEvents(new EntityListener(), this);
+        getServer().getPluginManager().registerEvents(new InventoryListener(), this);
         ItemManager.load(this);
 
         try {
