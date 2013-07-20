@@ -57,7 +57,6 @@ import think.rpgitems.power.PowerPotionSelf;
 import think.rpgitems.power.PowerPotionTick;
 import think.rpgitems.power.PowerRainbow;
 import think.rpgitems.power.PowerRumble;
-import think.rpgitems.power.PowerRush;
 import think.rpgitems.power.PowerSkyHook;
 import think.rpgitems.power.PowerTNTCannon;
 import think.rpgitems.power.PowerTeleport;
@@ -92,7 +91,6 @@ public class RPGItems extends JavaPlugin {
         Power.powers.put("teleport", PowerTeleport.class);
         Power.powers.put("fireball", PowerFireball.class);
         Power.powers.put("knockup", PowerKnockup.class);
-        Power.powers.put("rush", PowerRush.class);
         Power.powers.put("potionself", PowerPotionSelf.class);
         Power.powers.put("consume", PowerConsume.class);
         Power.powers.put("unbreakable", PowerUnbreakable.class);
