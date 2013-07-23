@@ -49,10 +49,15 @@
 				<configuration>
 					<artifactSet>
 						<includes>
+							<include>*:trove4j</include>
 							<include>org.mcstats.bukkit:metrics</include>
 						</includes>
 					</artifactSet>
 					<relocations>
+						<relocation>
+							<pattern>gnu.trove</pattern>
+							<shadedPattern>think.rpgitems.lib.gnu.trove</shadedPattern>
+						</relocation>
 						<relocation>
 							<pattern>org.mcstats.bukkit:metrics</pattern>
 							<shadedPattern>think.rpgitems.lib.org.mcstats</shadedPattern>
